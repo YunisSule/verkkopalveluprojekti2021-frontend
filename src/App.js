@@ -1,10 +1,12 @@
 import './App.css';
-import Frontpage from './components/Frontpage';
+import Navbar from './components/Navbar';
+import Content from './components/Content';
 
 function App() {
   return (
     <div>
-      Testi
+      <Navbar />
+      <Content />
     </div>
   );
 }
