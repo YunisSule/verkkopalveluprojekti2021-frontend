@@ -1,3 +1,17 @@
+/* STYLINGS FOR INFOBANNER */
+
+.infobanner {
+  background-color: #89023d;
+  display: flex;
+  justify-content: center;
+  height: 30px;
+}
+.infobanner p {
+  color: #fff;
+  margin: 0;
+  align-self: center;
+}
+
 /* STYLING FOR NAVBAR */
 
 .navbar {
