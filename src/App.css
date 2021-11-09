@@ -1,0 +1,14 @@
+<<<<<<< HEAD
+=======
+/* STYLING FOR NAVBAR */
+
+.navbar {
+  min-height: 150px;
+  max-height: fit-content;
+  justify-content: center !important;
+}
+
+.navbar-nav {
+  margin: 0px !important;
+}
+>>>>>>> 8e4cbe0571471355729c14b31c418536c40c3b6e
