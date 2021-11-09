@@ -1,11 +1,16 @@
+import { Switch, Route } from 'react-router';
 import './App.css';
-import Frontpage from './components/Frontpage';
+import Home from './components/Home';
 
 function App() {
   return (
-    <div>
-      Testi
-    </div>
+    <>
+    
+      <Switch>
+        <Route path="/" component={Home} exact />
+      </Switch>
+    
+    </>
   );
 }
 
