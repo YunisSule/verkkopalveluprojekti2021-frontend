@@ -1,12 +1,12 @@
 /* STYLINGS FOR INFOBANNER */
 
-.infobanner {
+#infobanner {
   background-color: #89023d;
   display: flex;
   justify-content: center;
   height: 30px;
 }
-.infobanner p {
+#infobanner p {
   color: #fff;
   margin: 0;
   align-self: center;
@@ -14,14 +14,20 @@
 
 /* STYLING FOR NAVBAR */
 
-.navbar {
+#navbar {
   min-height: 150px;
   max-height: fit-content;
   justify-content: center !important;
 }
 
-.navbar-nav {
+#navbar-nav {
   margin: 0px !important;
+}
+
+#navbar img {
+  position: absolute;
+  height: 100px;
+  left: 30px;
 }
 
 /*STYLING FOR HOMEPAGE*/
@@ -42,4 +48,37 @@
   margin-top: 30px;
   margin-bottom: 100vh;
   font-size: large;
+}
+
+/* STYLING FOR FOOTER */
+
+#footer {
+  background-color: #89023d;
+  margin: 0 !important;
+  max-width: 100% !important;
+  align-items: center;
+}
+
+#footerContent table {
+  margin-left: 100px;
+}
+
+#footerContent th {
+  text-decoration: underline;
+}
+
+#footerContent a {
+  color: #fff;
+  text-decoration: none;
+}
+
+#footerContent a:hover {
+  color: #590127;
+}
+
+#footerContent img {
+  align-self: center;
+  margin-left: auto;
+  height: 100px;
+  width: auto;
 }

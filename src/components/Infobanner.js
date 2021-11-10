@@ -1,6 +1,6 @@
 export default function Infobanner() {
   return (
-    <div className="infobanner">
+    <div id="infobanner">
       <p>Infoa ja tarjouksia</p>
     </div>
   );

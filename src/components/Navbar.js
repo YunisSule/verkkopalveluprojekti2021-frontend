@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
+import Logo from '../images/FribashopLogoNav.jpg';
 
 export default function Navbar() {
   return (
     <div>
-      <nav className="navbar navbar-expand-sm navbar-dark bg-black">
-        <ul className="navbar-nav">
+      <nav id="navbar" className="navbar navbar-expand-sm navbar-dark bg-black">
+        <img src={Logo} alt="Logo" />
+        <ul id="navbar-nav" className="navbar-nav">
           <li className="nav-item">
             <Link className="nav-link" to="/">
               Etusivu
