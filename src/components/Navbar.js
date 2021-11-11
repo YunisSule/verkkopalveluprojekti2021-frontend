@@ -5,7 +5,7 @@ export default function Navbar() {
   return (
     <div>
       <nav id="navbar" className="navbar navbar-expand-sm navbar-dark bg-black">
-        <img src={Logo} alt="Logo" />
+        <img src={Logo} alt="Logo" className="d-none d-lg-block" />
         <ul id="navbar-nav" className="navbar-nav">
           <li className="nav-item">
             <Link className="nav-link" to="/">

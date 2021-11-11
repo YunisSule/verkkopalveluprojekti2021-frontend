@@ -60,7 +60,7 @@
 }
 
 #footerContent table {
-  margin-left: 100px;
+  margin-left: 5%;
 }
 
 #footerContent th {
@@ -81,4 +81,10 @@
   margin-left: auto;
   height: 100px;
   width: auto;
+}
+
+#footerBottom,
+#footerBottom p {
+  margin: 0;
+  text-align: center;
 }
