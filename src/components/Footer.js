@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import Logo from '../images/FribashopLogoFooter.jpg';
+import Logo from '../images/Fribashoplogo.svg';
 
 export default function Footer() {
   return (

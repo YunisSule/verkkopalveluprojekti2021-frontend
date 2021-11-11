@@ -4,7 +4,7 @@ export default function Frontpage() {
   return (
     <div>
       <>
-        <div class="d-flex flex-column bd-highlight mb-3" id="banner">
+        <div className="d-flex flex-column bd-highlight mb-3" id="banner">
           <h1 className="text-center" id="header">
             Frisbeekauppa
           </h1>

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import Logo from '../images/FribashopLogoNav.jpg';
+import Logo from '../images/Fribashoplogo.svg';
 
 export default function Navbar() {
   return (
