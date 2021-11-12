@@ -14,20 +14,8 @@
 
 /* STYLING FOR NAVBAR */
 
-#navbar {
-  min-height: 150px;
-  max-height: fit-content;
-  justify-content: center !important;
-}
-
-#navbar-nav {
-  margin: 0px !important;
-}
-
-#navbar img {
-  position: absolute;
-  height: 100px;
-  left: 30px;
+#navItems {
+  display: flex;
 }
 
 /*STYLING FOR HOMEPAGE*/
