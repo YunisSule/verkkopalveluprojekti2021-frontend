@@ -18,6 +18,11 @@
   display: flex;
 }
 
+.searchBox {
+  display: inline-flex !important;
+  align-self: flex-end !important;
+}
+
 /*STYLING FOR HOMEPAGE*/
 
 #banner {
