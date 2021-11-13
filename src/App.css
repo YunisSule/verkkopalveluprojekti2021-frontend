@@ -23,6 +23,12 @@
   align-self: flex-end !important;
 }
 
+@media screen and (min-width: 768px) {
+  .navbar-collapse {
+    max-width: fit-content;
+  }
+}
+
 /*STYLING FOR HOMEPAGE*/
 
 #banner {
