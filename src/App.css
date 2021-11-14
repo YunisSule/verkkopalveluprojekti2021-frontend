@@ -87,3 +87,47 @@
   margin: 0;
   text-align: center;
 }
+
+/* STYLING FOR PRODUCT PAGE */
+
+#product-header {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  font-family: Oswald;
+}
+
+#product-brand {
+  padding-right: 10px;
+}
+
+img {
+  max-width: 100%;
+}
+
+#product-image {
+  margin: 1em;
+
+}
+
+#product-data {
+  font-family: Oswald;
+}
+
+#product-price {
+  font-size: x-large;
+  font-weight: bold;
+  font-family: Oswald;
+  padding-bottom: 0.5em;
+}
+
+#product-stock {
+  padding-right: 1.5em;
+}
+
+#product-description {
+  font-family: Oswald;
+}
+
+#add-to-cart-button {
+  background-color: #89023d;
+}
