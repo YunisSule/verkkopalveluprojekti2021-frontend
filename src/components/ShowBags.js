@@ -34,7 +34,7 @@ export default function ShowBags() {
             <ListGroupItemHeading>{item.name}</ListGroupItemHeading>
             <img src="https://via.placeholder.com/150" alt="Placeholder image" />
             <ListGroupItemText>Hinta {item.price}</ListGroupItemText>
-            <Link to="/product">Tiedot</Link>
+            <Link to={{ pathname: '/product', state: { id: item.product_id } }}>Tiedot</Link>
           </ListGroupItem>
         </div>
       ))}

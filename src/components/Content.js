@@ -1,6 +1,7 @@
 import { Switch, Route } from 'react-router';
 import Frontpage from './Frontpage';
 import Productpage from './Productpage';
+import SearchResults from './SearchResults';
 import ShowBags from './ShowBags';
 import ShowDiscs from './ShowDisc';
 
@@ -12,6 +13,7 @@ export default function Content() {
         <Route path="/product" component={Productpage} exact />
         <Route path="/kiekot" component={ShowDiscs} />
         <Route path="/kassit" component={ShowBags} />
+        <Route path="/hakutulokset" component={SearchResults} />
       </Switch>
     </div>
   );
