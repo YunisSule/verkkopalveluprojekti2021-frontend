@@ -106,7 +106,6 @@ img {
 
 #product-image {
   margin: 1em;
-
 }
 
 #product-data {
@@ -130,4 +129,11 @@ img {
 
 #add-to-cart-button {
   background-color: #89023d;
+}
+
+/* STYLING FOR ALL SHOWBAGS/SHOWDISCS */
+
+.items {
+  display: inline-block;
+  padding: 10px;
 }
