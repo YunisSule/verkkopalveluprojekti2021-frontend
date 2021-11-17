@@ -10,7 +10,7 @@ export default function ShowBags() {
   const [products, setProducts] = useState([]);
 
   //Bags category id
-  const id = 3;
+  const id = 2;
   const address = URL + id;
 
   useEffect(() => {

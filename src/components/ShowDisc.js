@@ -10,7 +10,7 @@ export default function ShowDiscs() {
   const [products, setProducts] = useState([]);
 
   //Disc category id
-  const id = 2;
+  const id = 1;
   const address = URL + id;
 
   useEffect(() => {

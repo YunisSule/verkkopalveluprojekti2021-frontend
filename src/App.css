@@ -93,7 +93,7 @@
 #product-header {
   margin-top: 1em;
   margin-bottom: 1em;
-  font-family: Oswald;
+  font-family: 'Oswald', sans-serif;
 }
 
 #product-brand {
@@ -104,18 +104,14 @@ img {
   max-width: 100%;
 }
 
-#product-image {
-  margin: 1em;
-}
-
 #product-data {
-  font-family: Oswald;
+  font-family: 'Oswald', sans-serif;
 }
 
 #product-price {
   font-size: x-large;
   font-weight: bold;
-  font-family: Oswald;
+  font-family: 'Oswald', sans-serif;
   padding-bottom: 0.5em;
 }
 
@@ -124,11 +120,19 @@ img {
 }
 
 #product-description {
-  font-family: Oswald;
+  font-family: 'Oswald', sans-serif;
 }
 
 #add-to-cart-button {
   background-color: #89023d;
+}
+
+body {
+  overflow-x:hidden;
+}
+
+.disc-properties {
+  margin-left: 1em;
 }
 
 /* STYLING FOR ALL SHOWBAGS/SHOWDISCS */
