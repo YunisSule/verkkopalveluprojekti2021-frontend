@@ -5,6 +5,7 @@ import { ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'reactstr
 
 // This page shows all discs
 const URL = 'http://localhost/verkkopalveluprojekti2021-backend/product/getproductbycategory.php?id=';
+const image_path = 'http://localhost/verkkopalveluprojekti2021-backend/images/';
 
 export default function ShowDiscs() {
   const [products, setProducts] = useState([]);
@@ -32,7 +33,7 @@ export default function ShowDiscs() {
         <div className="items">
           <ListGroupItem key={item.product_id}>
             <ListGroupItemHeading>{item.name}</ListGroupItemHeading>
-            <img src="https://via.placeholder.com/150" alt="Placeholder image" />
+            <img className="image_150px" src={image_path + item.image_path} alt="Product image" />
             <ListGroupItemText>Hinta {item.price}</ListGroupItemText>
             <Link to={{ pathname: '/product', state: { id: item.product_id } }}>Tiedot</Link>
           </ListGroupItem>

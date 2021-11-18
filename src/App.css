@@ -128,16 +128,19 @@ img {
 }
 
 body {
-  overflow-x:hidden;
+  overflow-x: hidden;
 }
 
 .disc-properties {
   margin-left: 1em;
 }
 
-/* STYLING FOR ALL SHOWBAGS/SHOWDISCS */
+/* STYLING FOR ALL SHOWBAGS/SHOWDISCS/SEARCHRESULTS */
 
 .items {
   display: inline-block;
   padding: 10px;
+}
+.image_150px {
+  height: 150px;
 }
