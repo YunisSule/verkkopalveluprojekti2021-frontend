@@ -33,20 +33,26 @@
 
 #banner {
   background-image: url(./images/banner.jpg);
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
 }
 
 #header {
   color: whitesmoke;
-  margin-top: 60px;
+  margin-top: 10vh;
 }
 
 #text {
   color: whitesmoke;
   margin-top: 30px;
-  margin-bottom: 100vh;
+  margin-bottom: 15vh;
   font-size: large;
+}
+
+.productOfTheMonth {
+  display: inline-block;
+  margin-bottom: 10vh;
+  margin-top: 5vh;
 }
 
 /* STYLING FOR FOOTER */
@@ -141,6 +147,7 @@ body {
   display: inline-block;
   padding: 10px;
 }
+
 .image_150px {
   height: 150px;
 }
