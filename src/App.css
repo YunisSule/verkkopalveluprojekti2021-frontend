@@ -33,20 +33,26 @@
 
 #banner {
   background-image: url(./images/banner.jpg);
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
 }
 
 #header {
   color: whitesmoke;
-  margin-top: 60px;
+  margin-top: 10vh;
 }
 
 #text {
   color: whitesmoke;
   margin-top: 30px;
-  margin-bottom: 100vh;
+  margin-bottom: 15vh;
   font-size: large;
+}
+
+.productOfTheMonth {
+  display: inline-block;
+  margin-bottom: 10vh;
+  margin-top: 5vh;
 }
 
 /* STYLING FOR FOOTER */
@@ -128,16 +134,23 @@ img {
 }
 
 body {
-  overflow-x:hidden;
+  overflow-x: hidden;
 }
 
 .disc-properties {
   margin-left: 1em;
 }
 
-/* STYLING FOR ALL SHOWBAGS/SHOWDISCS */
+/* STYLING FOR ALL SHOWBAGS/SHOWDISCS/SEARCHRESULTS */
 
 .items {
   display: inline-block;
   padding: 10px;
+  width: 250px;
+}
+.items p {
+  margin: 20px;
+}
+.image_150px {
+  height: 150px;
 }

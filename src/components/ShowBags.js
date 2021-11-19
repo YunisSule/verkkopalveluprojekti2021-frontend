@@ -5,6 +5,7 @@ import { ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'reactstr
 
 // This page shows all bags
 const URL = 'http://localhost/verkkopalveluprojekti2021-backend/product/getproductbycategory.php?id=';
+const image_path = 'http://localhost/verkkopalveluprojekti2021-backend/images/';
 
 export default function ShowBags() {
   const [products, setProducts] = useState([]);
@@ -32,9 +33,10 @@ export default function ShowBags() {
         <div className="items">
           <ListGroupItem key={item.product_id}>
             <ListGroupItemHeading>{item.name}</ListGroupItemHeading>
-            <img src="https://via.placeholder.com/150" alt="Placeholder image" />
+            <Link to={{ pathname: '/product', state: { id: item.product_id } }}>
+              <img className="image_150px" src={image_path + item.image_path} alt="Product image" />
+            </Link>
             <ListGroupItemText>Hinta {item.price}</ListGroupItemText>
-            <Link to={{ pathname: '/product', state: { id: item.product_id } }}>Tiedot</Link>
           </ListGroupItem>
         </div>
       ))}

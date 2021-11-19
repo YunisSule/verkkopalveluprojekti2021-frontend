@@ -6,6 +6,7 @@ import { useLocation } from 'react-router';
 
 // This page shows search results
 const URL = 'http://localhost/verkkopalveluprojekti2021-backend/product/searchproduct.php?query=';
+const image_path = 'http://localhost/verkkopalveluprojekti2021-backend/images/';
 
 export default function SearchResults() {
   const [products, setProducts] = useState([]);
@@ -34,9 +35,10 @@ export default function SearchResults() {
         <div className="items">
           <ListGroupItem key={item.product_id}>
             <ListGroupItemHeading>{item.name}</ListGroupItemHeading>
-            <img src="https://via.placeholder.com/150" alt="Placeholder image" />
+            <Link to={{ pathname: '/product', state: { id: item.product_id } }}>
+              <img className="image_150px" src={image_path + item.image_path} alt="Product image" />
+            </Link>
             <ListGroupItemText>Hinta {item.price}</ListGroupItemText>
-            <Link to={{ pathname: '/product', state: { id: item.product_id } }}>Tiedot</Link>
           </ListGroupItem>
         </div>
       ))}
