@@ -33,9 +33,10 @@ export default function ShowBags() {
         <div className="items">
           <ListGroupItem key={item.product_id}>
             <ListGroupItemHeading>{item.name}</ListGroupItemHeading>
-            <img className="image_150px" src={image_path + item.image_path} alt="Product image" />
+            <Link to={{ pathname: '/product', state: { id: item.product_id } }}>
+              <img className="image_150px" src={image_path + item.image_path} alt="Product image" />
+            </Link>
             <ListGroupItemText>Hinta {item.price}</ListGroupItemText>
-            <Link to={{ pathname: '/product', state: { id: item.product_id } }}>Tiedot</Link>
           </ListGroupItem>
         </div>
       ))}
