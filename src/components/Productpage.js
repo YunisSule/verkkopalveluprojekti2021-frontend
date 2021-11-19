@@ -6,13 +6,13 @@ import { useLocation } from 'react-router'
 const URL =
   'http://localhost/verkkopalveluprojekti2021-backend/product/getproductbyid.php?id='
 
-export default function Productpage () {
+export default function Productpage() {
   const [item, setItem] = useState([])
   const location = useLocation()
   const { id } = location.state
 
   // addToCart(id) {
-    
+
   // }
 
   useEffect(() => {
@@ -75,7 +75,7 @@ export default function Productpage () {
             <section>
               <div id='product-description'>
                 <p>Väri: {item.color}</p>
-                <ul className='d-flex list-unstyled text-center'>
+                {item.speed ? (<ul className='d-flex list-unstyled text-center'>
                   <li>
                     <span>Nopeus</span>
                     <p>{item.speed}</p>
@@ -92,24 +92,25 @@ export default function Productpage () {
                     <span>Feidi</span>
                     <p>{item.fade}</p>
                   </li>
-                </ul>
+                </ul>) : null}
+
               </div>
             </section>
             <section>
               <div>
-              <h4>Tuotekuvaus</h4>
+                <h4>Tuotekuvaus</h4>
 
-              <p>{item.description}</p>
+                <p>{item.description}</p>
               </div>
             </section>
-              <div>
-                <Button
+            <div>
+              <Button
                   /*onClick={addToCart}*/ className='btn btn-lg mb-3 ml-auto ml-lg-3'
-                  id='add-to-cart-button'
-                >
-                  <span>Lisää ostoskoriin</span>
-                </Button>
-              </div>
+                id='add-to-cart-button'
+              >
+                <span>Lisää ostoskoriin</span>
+              </Button>
+            </div>
           </Col>
         </Row>
       </Container>
