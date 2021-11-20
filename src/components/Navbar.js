@@ -3,11 +3,20 @@ import Logo from '../images/Fribashoplogo.svg';
 import React from 'react';
 import { Navbar, NavbarToggler, NavbarBrand, Collapse, NavItem, Nav, NavLink, Input, Button } from 'reactstrap';
 import { useState } from 'react';
+import { useLocation } from 'react-router';
 
 export default function NavBar() {
+  const location = useLocation();
+
   const [isOpen, setIsOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState('');
+
+  function refreshPage() {
+    if (location.pathname === '/hakutulokset') {
+      window.location.reload();
+    }
+  }
 
   return (
     <div>
@@ -64,7 +73,7 @@ export default function NavBar() {
             <Collapse isOpen={searchOpen} horizontal>
               <form className="searchBox">
                 <Input value={query} onChange={(e) => setQuery(e.target.value)} />
-                <Link to={{ pathname: '/hakutulokset', state: { query: query } }}>
+                <Link to={{ pathname: '/hakutulokset', state: { query: query } }} onClick={refreshPage}>
                   <Button>hae</Button>
                 </Link>
               </form>

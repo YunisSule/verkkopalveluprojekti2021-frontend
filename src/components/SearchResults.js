@@ -20,7 +20,6 @@ export default function SearchResults() {
       .get(address)
       .then((response) => {
         setProducts(response.data);
-        console.log(response.data);
       })
       .catch((error) => {
         alert(error);
