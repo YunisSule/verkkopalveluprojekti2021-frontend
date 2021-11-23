@@ -4,6 +4,7 @@ import Productpage from './Productpage';
 import SearchResults from './SearchResults';
 import ShowBags from './ShowBags';
 import ShowDiscs from './ShowDisc';
+import Userpage from './Userpage';
 
 export default function Content() {
   return (
@@ -14,6 +15,7 @@ export default function Content() {
         <Route path="/kiekot" component={ShowDiscs} />
         <Route path="/kassit" component={ShowBags} />
         <Route path="/hakutulokset" component={SearchResults} />
+        <Route path="/omatsivut" component={Userpage} />
       </Switch>
     </div>
   );

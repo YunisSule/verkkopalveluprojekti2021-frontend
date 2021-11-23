@@ -154,3 +154,15 @@ body {
 .image_150px {
   height: 150px;
 }
+
+/* STYLING FOR USERPAGE */
+
+.userinfo {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
+.userinfo td {
+  padding-left: 20px;
+}
