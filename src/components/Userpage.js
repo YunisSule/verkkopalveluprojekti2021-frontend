@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Nav, NavItem, NavLink, TabContent, TabPane, Row, Col, Form, FormGroup, Input, Label, Button } from 'reactstrap';
+import { Nav, NavItem, NavLink, TabContent, TabPane, Row, Col, Form, FormGroup, Input, Label, Button, Table, Collapse } from 'reactstrap';
 import axios from 'axios';
 
 const URL = 'http://localhost/verkkopalveluprojekti2021-backend/user/getalluserdata.php';
@@ -7,6 +7,7 @@ const URL = 'http://localhost/verkkopalveluprojekti2021-backend/user/getalluserd
 export default function Userpage() {
   const [activeTab, setActiveTab] = useState('1');
   const [user, setUser] = useState([]);
+  const [orderInfo, setOrderInfo] = useState(false);
 
   const address = URL;
 
@@ -34,6 +35,11 @@ export default function Userpage() {
             Muokkaa tietoja
           </NavLink>
         </NavItem>
+        <NavItem>
+          <NavLink className={activeTab == '3' ? 'active' : ''} onClick={() => setActiveTab('3')}>
+            Tilaushistoria
+          </NavLink>
+        </NavItem>
       </Nav>
       <TabContent activeTab={activeTab}>
         <TabPane tabId="1">
@@ -41,7 +47,7 @@ export default function Userpage() {
             <Col sm="12">
               <h4>Omat tiedot</h4>
               {user.map((item) => (
-                <table className="userinfo">
+                <Table>
                   <tbody>
                     <tr>
                       <td>Käyttäjänimi</td>
@@ -66,7 +72,7 @@ export default function Userpage() {
                       </td>
                     </tr>
                   </tbody>
-                </table>
+                </Table>
               ))}
             </Col>
           </Row>
@@ -115,6 +121,51 @@ export default function Userpage() {
                   <Button>Tallenna</Button>
                 </Form>
               ))}
+            </Col>
+          </Row>
+        </TabPane>
+        <TabPane tabId="3">
+          <Row>
+            <Col sm="12">
+              <h4>Tilaushistoria</h4>
+              <Table striped responsive hover>
+                <thead>
+                  <tr>
+                    <th>Tilausnumero</th>
+                    <th>Tilauspäivä</th>
+                    <th>Tila</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    onClick={function noRefCheck() {
+                      setOrderInfo(!orderInfo);
+                    }}
+                  >
+                    <td>test text{}</td>
+                    <td>test text{}</td>
+                    <td>test text{}</td>
+                  </tr>
+                  <Collapse isOpen={orderInfo}>
+                    <Table striped responsive hover>
+                      <thead>
+                        <tr>
+                          <th>Tuotenumero</th>
+                          <th>Tuotenimi</th>
+                          <th>Hinta</th>
+                          <th>Määrä</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <td>test text</td>
+                        <td>test text</td>
+                        <td>test text</td>
+                        <td>test text</td>
+                      </tbody>
+                    </Table>
+                  </Collapse>
+                </tbody>
+              </Table>
             </Col>
           </Row>
         </TabPane>
