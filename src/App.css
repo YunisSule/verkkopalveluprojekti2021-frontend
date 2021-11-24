@@ -112,10 +112,11 @@ img {
 
 #product-data {
   font-family: 'Oswald', sans-serif;
+  font-size: 20px;
 }
 
 #product-price {
-  font-size: x-large;
+  font-size: xx-large;
   font-weight: bold;
   font-family: 'Oswald', sans-serif;
   padding-bottom: 0.5em;
@@ -127,6 +128,7 @@ img {
 
 #product-description {
   font-family: 'Oswald', sans-serif;
+  font-size: 20px;
 }
 
 #add-to-cart-button {
