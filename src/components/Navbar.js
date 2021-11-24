@@ -12,12 +12,6 @@ export default function NavBar() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState('');
 
-  function refreshPage() {
-    if (location.pathname === '/hakutulokset') {
-      window.location.reload();
-    }
-  }
-
   return (
     <div>
       <Navbar color="dark" expand="md" dark>
@@ -73,7 +67,7 @@ export default function NavBar() {
             <Collapse isOpen={searchOpen} horizontal>
               <form className="searchBox">
                 <Input value={query} onChange={(e) => setQuery(e.target.value)} />
-                <Link to={{ pathname: '/hakutulokset', state: { query: query } }} onClick={refreshPage}>
+                <Link to={{ pathname: '/hakutulokset', state: { query: query } }}>
                   <Button>hae</Button>
                 </Link>
               </form>
