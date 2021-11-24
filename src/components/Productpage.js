@@ -35,7 +35,7 @@ export default function Productpage() {
 
   return (
     <>
-      <Container>
+      <Container className="mt-4 mb-5">
         <Row>
           <Col className="bd-highlight" id="product-header">
             <h1 className="text-center">
@@ -47,15 +47,15 @@ export default function Productpage() {
         <Row>
           <Col md={4} className="text-end" id="product-media">
             <div>
-              <figure className="p-md-0 p-5" id="product-image">
+              <figure className="p-md-0" id="product-image">
                 <picture>
                   <source />
-                  <img src={image_path + item.image_path} alt="Product image" className="img-fluid  ml-10 mr-10" />
+                  <img src={image_path + item.image_path} alt="Product image" className="img-fluid p-1" />
                 </picture>
               </figure>
             </div>
           </Col>
-          <Col md={8} className="" id="product-data">
+          <Col md={8} className="ps-5" id="product-data">
             <section>
               <div id="product-price">{item.price}€</div>
             </section>
@@ -101,7 +101,7 @@ export default function Productpage() {
             </section>
             <div>
               <Button
-                  /*onClick={addToCart}*/ className='btn btn-lg mb-3 ml-auto ml-lg-3'
+                  /*onClick={addToCart}*/ className='btn btn-lg mb-3 ml-auto ml-lg-3 mt-5'
                 id='add-to-cart-button'
               >
                 <span>Lisää ostoskoriin</span>
