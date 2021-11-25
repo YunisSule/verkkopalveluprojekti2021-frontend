@@ -1,19 +1,27 @@
 import { useState, useEffect } from 'react';
-import { Nav, NavItem, NavLink, TabContent, TabPane, Row, Col, Form, FormGroup, Input, Label, Button, Table, Collapse } from 'reactstrap';
+import { Nav, NavItem, NavLink, TabContent, TabPane, Row, Col, Form, FormGroup, Input, Label, Button, Table, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import axios from 'axios';
 
-const URL = 'http://localhost/verkkopalveluprojekti2021-backend/user/getalluserdata.php';
+const URL = 'http://localhost/verkkopalveluprojekti2021-backend/';
+const USER_INFO = '/user/getallusers.php';
+const ORDER_INFO = '/order/getorderinfo.php?id=';
+const ORDER_HISTORY = '/order/getorders.php?id=1';
 
 export default function Userpage() {
   const [activeTab, setActiveTab] = useState('1');
   const [user, setUser] = useState([]);
-  const [orderInfo, setOrderInfo] = useState(false);
+  const [orderHistory, setOrderHistory] = useState([]);
+  const [orderInfo, setOrderInfo] = useState([]);
+  const [modal, setModal] = useState(false);
+  const [orderId, setOrderId] = useState('');
 
   const address = URL;
 
+  // Get user info to user variable
+
   useEffect(() => {
     axios
-      .get(address)
+      .get(address + USER_INFO)
       .then((response) => {
         setUser(response.data);
       })
@@ -22,21 +30,47 @@ export default function Userpage() {
       });
   }, []);
 
+  // Get order info to orderInfo variable
+
+  useEffect(() => {
+    axios
+      .get(address + ORDER_INFO + orderId)
+      .then((response) => {
+        setOrderInfo(response.data);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }, [orderId]);
+
+  // Get order history to orderHistory variable
+
+  useEffect(() => {
+    axios
+      .get(address + ORDER_HISTORY)
+      .then((response) => {
+        setOrderHistory(response.data);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }, []);
+
   return (
-    <div className="col-8 offset-2">
+    <div className="col-8 offset-2 mb-5">
       <Nav tabs>
         <NavItem>
-          <NavLink className={activeTab == '1' ? 'active' : ''} onClick={() => setActiveTab('1')}>
+          <NavLink className={activeTab === '1' ? 'active' : ''} onClick={() => setActiveTab('1')}>
             Omat tiedot
           </NavLink>
         </NavItem>
         <NavItem>
-          <NavLink className={activeTab == '2' ? 'active' : ''} onClick={() => setActiveTab('2')}>
+          <NavLink className={activeTab === '2' ? 'active' : ''} onClick={() => setActiveTab('2')}>
             Muokkaa tietoja
           </NavLink>
         </NavItem>
         <NavItem>
-          <NavLink className={activeTab == '3' ? 'active' : ''} onClick={() => setActiveTab('3')}>
+          <NavLink className={activeTab === '3' ? 'active' : ''} onClick={() => setActiveTab('3')}>
             Tilaushistoria
           </NavLink>
         </NavItem>
@@ -128,7 +162,8 @@ export default function Userpage() {
           <Row>
             <Col sm="12">
               <h4>Tilaushistoria</h4>
-              <Table striped responsive hover>
+
+              <Table responsive hover>
                 <thead>
                   <tr>
                     <th>Tilausnumero</th>
@@ -136,40 +171,59 @@ export default function Userpage() {
                     <th>Tila</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr
-                    onClick={function noRefCheck() {
-                      setOrderInfo(!orderInfo);
-                    }}
-                  >
-                    <td>test text{}</td>
-                    <td>test text{}</td>
-                    <td>test text{}</td>
-                  </tr>
-                  <Collapse isOpen={orderInfo}>
-                    <Table striped responsive hover>
-                      <thead>
-                        <tr>
-                          <th>Tuotenumero</th>
-                          <th>Tuotenimi</th>
-                          <th>Hinta</th>
-                          <th>Määrä</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <td>test text</td>
-                        <td>test text</td>
-                        <td>test text</td>
-                        <td>test text</td>
-                      </tbody>
-                    </Table>
-                  </Collapse>
-                </tbody>
+                {orderHistory.map((item) => (
+                  <tbody>
+                    <tr
+                      onClick={function noRefCheck() {
+                        setModal(!modal);
+                        setOrderId(item.order_id);
+                      }}
+                    >
+                      <td>{item.order_id}</td>
+                      <td>{item.order_date}</td>
+                      <td>{item.state}</td>
+                    </tr>
+                  </tbody>
+                ))}
               </Table>
             </Col>
           </Row>
         </TabPane>
       </TabContent>
+      <div>
+        <Modal isOpen={modal}>
+          <ModalHeader
+            charCode="Y"
+            toggle={function noRefCheck() {
+              setModal(!modal);
+            }}
+          >
+            Tilausten tiedot
+          </ModalHeader>
+          <ModalBody>
+            <Table>
+              <thead>
+                <tr>
+                  <th>Tuotenumero</th>
+                  <th>Tuotenimi</th>
+                  <th>Määrä</th>
+                  <th>Hinta</th>
+                </tr>
+              </thead>
+              {orderInfo.map((item) => (
+                <tbody>
+                  <tr>
+                    <td>{item.product_id}</td>
+                    <td>{item.name}</td>
+                    <td>{item.quantity}</td>
+                    <td>{item.price}</td>
+                  </tr>
+                </tbody>
+              ))}
+            </Table>
+          </ModalBody>
+        </Modal>
+      </div>
     </div>
   );
 }
