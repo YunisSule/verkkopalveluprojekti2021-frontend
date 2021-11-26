@@ -7,9 +7,9 @@ const URL = 'http://localhost/verkkopalveluprojekti2021-backend/product/getprodu
 const image_path = 'http://localhost/verkkopalveluprojekti2021-backend/images/';
 
 export default function Productpage() {
-  const [item, setItem] = useState([])
-  const location = useLocation()
-  const { id } = location.state
+  const [item, setItem] = useState([]);
+  const location = useLocation();
+  const { id } = location.state;
 
   // addToCart(id) {
 
@@ -71,25 +71,26 @@ export default function Productpage() {
             <section>
               <div id="product-description">
                 <p>Väri: {item.color}</p>
-                {item.speed ? (<ul className='d-flex list-unstyled text-center'>
-                  <li>
-                    <span>Nopeus</span>
-                    <p>{item.speed}</p>
-                  </li>
-                  <li className="disc-properties">
-                    <span>Liito</span>
-                    <p>{item.glide}</p>
-                  </li>
-                  <li className="disc-properties">
-                    <span>Vakaus</span>
-                    <p>{item.turn}</p>
-                  </li>
-                  <li className="disc-properties">
-                    <span>Feidi</span>
-                    <p>{item.fade}</p>
-                  </li>
-                </ul>) : null}
-
+                {item.speed ? (
+                  <ul className="d-flex list-unstyled text-center">
+                    <li>
+                      <span>Nopeus</span>
+                      <p>{item.speed}</p>
+                    </li>
+                    <li className="disc-properties">
+                      <span>Liito</span>
+                      <p>{item.glide}</p>
+                    </li>
+                    <li className="disc-properties">
+                      <span>Vakaus</span>
+                      <p>{item.turn}</p>
+                    </li>
+                    <li className="disc-properties">
+                      <span>Feidi</span>
+                      <p>{item.fade}</p>
+                    </li>
+                  </ul>
+                ) : null}
               </div>
             </section>
             <section>
@@ -100,10 +101,7 @@ export default function Productpage() {
               </div>
             </section>
             <div>
-              <Button
-                  /*onClick={addToCart}*/ className='btn btn-lg mb-3 ml-auto ml-lg-3 mt-5'
-                id='add-to-cart-button'
-              >
+              <Button /*onClick={addToCart}*/ className="btn btn-lg mb-3 ml-auto ml-lg-3 mt-5" id="add-to-cart-button">
                 <span>Lisää ostoskoriin</span>
               </Button>
             </div>

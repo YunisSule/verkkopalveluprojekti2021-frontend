@@ -1,4 +1,5 @@
 import { Switch, Route } from 'react-router';
+import Adminpage from './Adminpage';
 import Frontpage from './Frontpage';
 import Productpage from './Productpage';
 import SearchResults from './SearchResults';
@@ -16,6 +17,7 @@ export default function Content() {
         <Route path="/kassit" component={ShowBags} />
         <Route path="/hakutulokset" component={SearchResults} />
         <Route path="/omatsivut" component={Userpage} />
+        <Route path="/hallinta" component={Adminpage} exact />
       </Switch>
     </div>
   );
