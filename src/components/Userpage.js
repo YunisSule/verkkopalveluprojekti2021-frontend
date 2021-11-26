@@ -67,8 +67,7 @@ export default function Userpage() {
 
   // Update user info: firstname, lastname, email, address, city and postal code by ID. posts JSON data
 
-  function update(e) {
-    e.preventDefault();
+  function update() {
     const json = JSON.stringify(formdata);
     console.log(json);
 
