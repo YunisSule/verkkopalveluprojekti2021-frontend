@@ -8,7 +8,7 @@ import Userpage from './Userpage';
 
 export default function Content() {
   return (
-    <div>
+    <div className="flex-grow-1 mb-5">
       <Switch>
         <Route path="/" component={Frontpage} exact />
         <Route path="/product" component={Productpage} exact />

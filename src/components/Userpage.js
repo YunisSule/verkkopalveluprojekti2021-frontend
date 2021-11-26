@@ -57,20 +57,20 @@ export default function Userpage() {
   }, []);
 
   return (
-    <div className="col-8 offset-2 mb-5">
+    <div className="col-8 offset-2 mt-4">
       <Nav tabs>
         <NavItem>
-          <NavLink className={activeTab === '1' ? 'active' : ''} onClick={() => setActiveTab('1')}>
+          <NavLink className={activeTab === '1' ? 'active' : 'text-dark'} onClick={() => setActiveTab('1')}>
             Omat tiedot
           </NavLink>
         </NavItem>
         <NavItem>
-          <NavLink className={activeTab === '2' ? 'active' : ''} onClick={() => setActiveTab('2')}>
+          <NavLink className={activeTab === '2' ? 'active' : 'text-dark'} onClick={() => setActiveTab('2')}>
             Muokkaa tietoja
           </NavLink>
         </NavItem>
         <NavItem>
-          <NavLink className={activeTab === '3' ? 'active' : ''} onClick={() => setActiveTab('3')}>
+          <NavLink className={activeTab === '3' ? 'active' : 'text-dark'} onClick={() => setActiveTab('3')}>
             Tilaushistoria
           </NavLink>
         </NavItem>
@@ -78,10 +78,10 @@ export default function Userpage() {
       <TabContent activeTab={activeTab}>
         <TabPane tabId="1">
           <Row>
-            <Col sm="12">
+            <Col sm="12" className="mt-4">
               <h4>Omat tiedot</h4>
               {user.map((item) => (
-                <Table>
+                <Table className="mt-4">
                   <tbody>
                     <tr>
                       <td>Käyttäjänimi</td>
@@ -113,10 +113,10 @@ export default function Userpage() {
         </TabPane>
         <TabPane tabId="2">
           <Row>
-            <Col sm="12">
+            <Col sm="12" className="mt-4">
               <h4>Muokkaa tietoja</h4>
               {user.map((item) => (
-                <Form className="userinfo">
+                <Form className="mt-4 mb-4">
                   <Row form>
                     <Col md={6}>
                       <FormGroup>
@@ -160,10 +160,9 @@ export default function Userpage() {
         </TabPane>
         <TabPane tabId="3">
           <Row>
-            <Col sm="12">
+            <Col sm="12" className="mt-4">
               <h4>Tilaushistoria</h4>
-
-              <Table responsive hover>
+              <Table responsive hover striped>
                 <thead>
                   <tr>
                     <th>Tilausnumero</th>
@@ -171,8 +170,9 @@ export default function Userpage() {
                     <th>Tila</th>
                   </tr>
                 </thead>
-                {orderHistory.map((item) => (
-                  <tbody>
+
+                <tbody>
+                  {orderHistory.map((item) => (
                     <tr
                       onClick={function noRefCheck() {
                         setModal(!modal);
@@ -183,8 +183,8 @@ export default function Userpage() {
                       <td>{item.order_date}</td>
                       <td>{item.state}</td>
                     </tr>
-                  </tbody>
-                ))}
+                  ))}
+                </tbody>
               </Table>
             </Col>
           </Row>

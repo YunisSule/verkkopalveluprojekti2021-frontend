@@ -6,12 +6,12 @@ import Footer from './components/Footer';
 
 function App() {
   return (
-    <>
+    <div className="d-flex flex-column min-vh-100">
       <Infobanner />
       <NavBar />
       <Content />
       <Footer />
-    </>
+    </div>
   );
 }
 
