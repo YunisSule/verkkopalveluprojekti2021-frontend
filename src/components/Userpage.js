@@ -6,6 +6,7 @@ const URL = 'http://localhost/verkkopalveluprojekti2021-backend/';
 const USER_INFO = '/user/getallusers.php';
 const ORDER_INFO = '/order/getorderinfo.php?id=';
 const ORDER_HISTORY = '/order/getorders.php?id=1';
+const UPDATE_USER_INFO = '/user/updateuserinfo.php?id=1';
 
 export default function Userpage() {
   const [activeTab, setActiveTab] = useState('1');
@@ -14,6 +15,14 @@ export default function Userpage() {
   const [orderInfo, setOrderInfo] = useState([]);
   const [modal, setModal] = useState(false);
   const [orderId, setOrderId] = useState('');
+  const formdata = {
+    firstname: '',
+    lastname: '',
+    email: '',
+    address: '',
+    city: '',
+    postal_code: ''
+  };
 
   const address = URL;
 
@@ -55,6 +64,25 @@ export default function Userpage() {
         alert(error);
       });
   }, []);
+
+  // Update user info: firstname, lastname, email, address, city and postal code by ID. posts JSON data
+
+  function update(e) {
+    e.preventDefault();
+    const json = JSON.stringify(formdata);
+    console.log(json);
+
+    axios
+      .post(URL + UPDATE_USER_INFO, json, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then((response) => {})
+      .catch((error) => {
+        alert(error);
+      });
+  }
 
   return (
     <div className="col-8 offset-2 mt-4">
@@ -116,12 +144,48 @@ export default function Userpage() {
             <Col sm="12" className="mt-4">
               <h4>Muokkaa tietoja</h4>
               {user.map((item) => (
-                <Form className="mt-4 mb-4">
+                <Form className="mt-4 mb-4" onSubmit={update}>
                   <Row form>
                     <Col md={6}>
                       <FormGroup>
+                        <Label for="exampleEmail">Etunimi</Label>
+                        <Input
+                          id="exampleEmail"
+                          name="firstname"
+                          placeholder={item.firstname}
+                          type="text"
+                          onChange={(e) => {
+                            formdata.firstname = e.target.value;
+                          }}
+                        />
+                      </FormGroup>
+                    </Col>
+                    <Col md={6}>
+                      <FormGroup>
+                        <Label for="exampleEmail">Sukunimi</Label>
+                        <Input
+                          id="exampleEmail"
+                          name="lastname"
+                          placeholder={item.lastname}
+                          type="text"
+                          onChange={(e) => {
+                            formdata.lastname = e.target.value;
+                          }}
+                        />
+                      </FormGroup>
+                    </Col>
+                    <Col md={6}>
+                      <FormGroup>
                         <Label for="exampleEmail">Sähköposti</Label>
-                        <Input id="exampleEmail" name="email" placeholder={item.email} type="email" />
+                        <Input
+                          id="exampleEmail"
+                          name="email"
+                          placeholder={item.email}
+                          type="email"
+                          onChange={(e) => {
+                            formdata.email = e.target.value;
+                          }}
+                        />
                       </FormGroup>
                     </Col>
                     <Col md={6}>
@@ -134,21 +198,42 @@ export default function Userpage() {
                   <Col md={6}>
                     <FormGroup>
                       <Label for="exampleAddress">Osoite</Label>
-                      <Input id="exampleAddress" name="address" placeholder={item.address} />
+                      <Input
+                        id="exampleAddress"
+                        name="address"
+                        placeholder={item.address}
+                        onChange={(e) => {
+                          formdata.address = e.target.value;
+                        }}
+                      />
                     </FormGroup>
                   </Col>
                   <Row form>
                     <Col md={6}>
                       <FormGroup>
                         <Label for="exampleCity">Kaupunki</Label>
-                        <Input id="exampleCity" name="city" placeholder={item.city} />
+                        <Input
+                          id="exampleCity"
+                          name="city"
+                          placeholder={item.city}
+                          onChange={(e) => {
+                            formdata.city = e.target.value;
+                          }}
+                        />
                       </FormGroup>
                     </Col>
                     <Col md={4}></Col>
                     <Col md={2}>
                       <FormGroup>
                         <Label for="exampleZip">Postinumero</Label>
-                        <Input id="exampleZip" name="zip" placeholder={item.postal_code} />
+                        <Input
+                          id="exampleZip"
+                          name="zip"
+                          placeholder={item.postal_code}
+                          onChange={(e) => {
+                            formdata.postal_code = e.target.value;
+                          }}
+                        />
                       </FormGroup>
                     </Col>
                   </Row>
