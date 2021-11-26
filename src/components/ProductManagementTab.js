@@ -12,7 +12,7 @@ export default function ProductManagementTab() {
   const modalShow = () => setOpenModal(true);
   const modalHide = () => setOpenModal(false);
 
-  const fetchProducts = async () => {
+  const fetchProducts = () => {
     try {
       axios.get(`${baseURL}/product/getallproducts.php`).then((res) => {
         setProducts(res.data);
@@ -24,7 +24,7 @@ export default function ProductManagementTab() {
 
   useEffect(() => {
     fetchProducts();
-  }, [products]);
+  }, [openModal]);
 
   return (
     <Container>
