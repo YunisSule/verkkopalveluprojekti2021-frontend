@@ -29,6 +29,10 @@
   }
 }
 
+#login-modal-toggle:focus {
+  box-shadow: none !important;
+}
+
 /*STYLING FOR HOMEPAGE*/
 
 #banner {
@@ -131,8 +135,9 @@ img {
   font-size: 20px;
 }
 
-#add-to-cart-button {
+#add-to-cart-button, #signin-button{
   background-color: #89023d;
+  border-style: none;
 }
 
 body {

@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
 import Logo from '../images/Fribashoplogo.svg';
 import React from 'react';
-import { Navbar, NavbarToggler, NavbarBrand, Collapse, NavItem, Nav, NavLink, Input, Button } from 'reactstrap';
+import { Navbar, NavbarToggler, NavbarBrand, Collapse, NavItem, Nav, NavLink, Input, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup } from 'reactstrap';
 import { useState } from 'react';
 import { useLocation } from 'react-router';
+import axios from 'axios';
 
 export default function NavBar() {
   const location = useLocation();
@@ -11,6 +12,21 @@ export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState('');
+  const [signInModal, setSignInModal] = useState(false)
+  const userdata = {
+    email:'',
+    passwd:''
+  }
+
+  function signIn() {
+    axios.post('http://localhost/verkkopalveluprojekti2021-backend/signin', '', 
+    {
+      headers:{ Authorization: 'Basic ' + Buffer.from(userdata.email+":"+userdata.passwd).toString('base64') },
+      withCredentials:true
+    }).then(response => {
+      sessionStorage.setItem('token', response.data)
+    }).catch(error => alert(error.response ? error.response.data.error : error))
+  }
 
   return (
     <div>
@@ -87,6 +103,55 @@ export default function NavBar() {
               </svg>
             </Link>
           </NavLink>
+          <NavItem>
+            <Button id="login-modal-toggle" color="none" onClick={function noRefCheck() {
+                setSignInModal(!signInModal)
+               }}>
+              <svg xmlns="http://www.w3.org/2000/svg" 
+              width="20" 
+              height="20" 
+              fill="currentColor"
+              color="white" 
+              className="bi bi-box-arrow-in-right" 
+              viewBox="0 0 16 16"
+              >
+                <path fillRule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"/>
+                <path fillRule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+              </svg>
+            </Button>
+            <Modal isOpen={signInModal} toggle={function noRefCheck(){}} >
+              <ModalHeader toggle={function noRefCheck() {
+                    setSignInModal(!signInModal)
+                   }}>
+                Kirjaudu
+              </ModalHeader>
+              <ModalBody>
+                <Form id="login-form-modal" onSubmit={signIn}>
+                  <FormGroup>
+                    <label htmlFor="e-mail">Sähköposti</label>
+                    <div>
+                      <Input name="e-mail" type="email" required="required" autoComplete="username" onChange={(e) => userdata.email = e.target.value} />
+                    </div>
+                  </FormGroup>
+                  <FormGroup>
+                    <label htmlFor="passwd">Salasana</label>
+                    <div>
+                      <Input type="password" name="password" required="required" onChange={(e) => userdata.passwd = e.target.value} />
+                    </div>
+                  </FormGroup>
+                  <ModalFooter>
+                <Button
+                  className="text-center"
+                  id="signin-button"
+                  color="primary"
+                >
+                Kirjaudu
+                </Button>
+              </ModalFooter>
+                </Form>
+              </ModalBody>
+            </Modal>
+          </NavItem>
         </div>
       </Navbar>
     </div>
