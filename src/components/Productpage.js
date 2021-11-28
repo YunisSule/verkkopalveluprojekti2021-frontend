@@ -31,7 +31,7 @@ export default function Productpage({addToCart}) {
 
   return (
     <>
-      <Container>
+      <Container className="mt-4 mb-5">
         <Row>
           <Col className="bd-highlight" id="product-header">
             <h1 className="text-center">
@@ -43,15 +43,15 @@ export default function Productpage({addToCart}) {
         <Row>
           <Col md={4} className="text-end" id="product-media">
             <div>
-              <figure className="p-md-0 p-5" id="product-image">
+              <figure className="p-md-0" id="product-image">
                 <picture>
                   <source />
-                  <img src={image_path + item.image_path} alt="Product image" className="img-fluid  ml-10 mr-10" />
+                  <img src={image_path + item.image_path} alt="Product image" className="img-fluid p-1" />
                 </picture>
               </figure>
             </div>
           </Col>
-          <Col md={8} className="" id="product-data">
+          <Col md={8} className="ps-5" id="product-data">
             <section>
               <div id="product-price">{item.price}€</div>
             </section>
@@ -67,25 +67,26 @@ export default function Productpage({addToCart}) {
             <section>
               <div id="product-description">
                 <p>Väri: {item.color}</p>
-                {item.speed ? (<ul className='d-flex list-unstyled text-center'>
-                  <li>
-                    <span>Nopeus</span>
-                    <p>{item.speed}</p>
-                  </li>
-                  <li className="disc-properties">
-                    <span>Liito</span>
-                    <p>{item.glide}</p>
-                  </li>
-                  <li className="disc-properties">
-                    <span>Vakaus</span>
-                    <p>{item.turn}</p>
-                  </li>
-                  <li className="disc-properties">
-                    <span>Feidi</span>
-                    <p>{item.fade}</p>
-                  </li>
-                </ul>) : null}
-
+                {item.speed ? (
+                  <ul className="d-flex list-unstyled text-center">
+                    <li>
+                      <span>Nopeus</span>
+                      <p>{item.speed}</p>
+                    </li>
+                    <li className="disc-properties">
+                      <span>Liito</span>
+                      <p>{item.glide}</p>
+                    </li>
+                    <li className="disc-properties">
+                      <span>Vakaus</span>
+                      <p>{item.turn}</p>
+                    </li>
+                    <li className="disc-properties">
+                      <span>Feidi</span>
+                      <p>{item.fade}</p>
+                    </li>
+                  </ul>
+                ) : null}
               </div>
             </section>
             <section>

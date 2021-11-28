@@ -35,7 +35,7 @@ function App() {
   }, [])
 
   return (
-    <>
+    <div className="d-flex flex-column min-vh-100">
       <Infobanner />
       <NavBar cart={cart}/>
       <Content 
@@ -43,7 +43,7 @@ function App() {
       cart={cart}
       updateAmount={updateAmount}/>
       <Footer />
-    </>
+    </div>
   );
 }
 

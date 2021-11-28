@@ -24,7 +24,7 @@ export default function SearchResults() {
       .catch((error) => {
         alert(error);
       });
-  }, []);
+  }, [address]);
 
   return (
     <div className="col-8 offset-2">
