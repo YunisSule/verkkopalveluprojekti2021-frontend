@@ -162,14 +162,16 @@ body {
   height: 150px;
 }
 
+/* STYLING FOR SHOPPING CART */
+
+.cart {
+  width: 150px;
+  padding:10px;
+  padding-bottom: 30px;
+}
+
+.cartimage {
+  height: 50px;
+  padding-right: 30px;
+}
 /* STYLING FOR USERPAGE */
-
-.userinfo {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  padding: 10px;
-}
-
-.userinfo td {
-  padding-left: 20px;
-}
