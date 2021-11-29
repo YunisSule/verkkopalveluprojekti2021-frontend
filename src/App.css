@@ -30,6 +30,10 @@
   }
 }
 
+#login-modal-toggle:focus {
+  box-shadow: none !important;
+}
+
 /*STYLING FOR HOMEPAGE*/
 
 #banner {
@@ -132,8 +136,9 @@ img {
   font-size: 20px;
 }
 
-#add-to-cart-button {
+#add-to-cart-button, #signin-button{
   background-color: #89023d;
+  border-style: none;
 }
 
 body {
@@ -158,6 +163,18 @@ body {
   height: 150px;
 }
 
+/* STYLING FOR SHOPPING CART */
+
+.cart {
+  width: 150px;
+  padding:10px;
+  padding-bottom: 30px;
+}
+
+.cartimage {
+  height: 50px;
+  padding-right: 30px;
+}
 /* STYLING FOR USERPAGE */
 
 /* STYLING FOR ADMIN PANEL */

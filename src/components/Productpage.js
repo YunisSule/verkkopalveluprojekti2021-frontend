@@ -6,14 +6,10 @@ import { useLocation } from 'react-router';
 const URL = 'http://localhost/verkkopalveluprojekti2021-backend/product/getproductbyid.php?id=';
 const image_path = 'http://localhost/verkkopalveluprojekti2021-backend/images/';
 
-export default function Productpage() {
-  const [item, setItem] = useState([]);
-  const location = useLocation();
-  const { id } = location.state;
-
-  // addToCart(id) {
-
-  // }
+export default function Productpage({addToCart}) {
+  const [item, setItem] = useState([])
+  const location = useLocation()
+  const { id } = location.state
 
   useEffect(() => {
     const address = URL + id;
@@ -101,7 +97,10 @@ export default function Productpage() {
               </div>
             </section>
             <div>
-              <Button /*onClick={addToCart}*/ className="btn btn-lg mb-3 ml-auto ml-lg-3 mt-5" id="add-to-cart-button">
+              <Button
+                  onClick={e => addToCart(item)} className='btn btn-lg mb-3 ml-auto ml-lg-3'
+                id='add-to-cart-button'
+              >
                 <span>Lisää ostoskoriin</span>
               </Button>
             </div>
