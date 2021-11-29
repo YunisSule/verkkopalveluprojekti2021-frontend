@@ -3,7 +3,7 @@ import { Nav, NavItem, NavLink, TabContent, TabPane, Row, Col, Form, FormGroup, 
 import axios from 'axios';
 
 const URL = 'http://localhost/verkkopalveluprojekti2021-backend/';
-const USER_INFO = '/user/getallusers.php';
+const USER_INFO = '/user/getuserbyid.php?id=1';
 const ORDER_INFO = '/order/getorderinfo.php?id=';
 const ORDER_HISTORY = '/order/getorders.php?id=1';
 const UPDATE_USER_INFO = '/user/updateuserinfo.php?id=1';
@@ -15,7 +15,7 @@ export default function Userpage() {
   const [orderInfo, setOrderInfo] = useState([]);
   const [modal, setModal] = useState(false);
   const [orderId, setOrderId] = useState('');
-  const [formdata, setFormdata] = useState({});
+  const [formdata, setFormdata] = useState([]);
 
   const address = URL;
 
@@ -88,7 +88,13 @@ export default function Userpage() {
           </NavLink>
         </NavItem>
         <NavItem>
-          <NavLink className={activeTab === '2' ? 'active' : 'text-dark'} onClick={() => setActiveTab('2')}>
+          <NavLink
+            className={activeTab === '2' ? 'active' : 'text-dark'}
+            onClick={() => {
+              setFormdata(user[0]);
+              setActiveTab('2');
+            }}
+          >
             Muokkaa tietoja
           </NavLink>
         </NavItem>
@@ -138,58 +144,57 @@ export default function Userpage() {
           <Row>
             <Col sm="12" className="mt-4">
               <h4>Muokkaa tietoja</h4>
-              {user.map((item) => (
-                <Form className="mt-4 mb-4" onSubmit={update}>
-                  <Row form>
-                    <Col md={6}>
-                      <FormGroup>
-                        <Label for="firstname">Etunimi</Label>
-                        <Input id="firstname" name="firstname" placeholder={item.firstname} type="text" onChange={handleChange} />
-                      </FormGroup>
-                    </Col>
-                    <Col md={6}>
-                      <FormGroup>
-                        <Label for="lastname">Sukunimi</Label>
-                        <Input id="lastname" name="lastname" placeholder={item.lastname} type="text" onChange={handleChange} />
-                      </FormGroup>
-                    </Col>
-                    <Col md={6}>
-                      <FormGroup>
-                        <Label for="email">Sähköposti</Label>
-                        <Input id="email" name="email" placeholder={item.email} type="email" onChange={handleChange} />
-                      </FormGroup>
-                    </Col>
-                    <Col md={6}>
-                      <FormGroup>
-                        <Label for="password">Salasana</Label>
-                        <Input id="password" name="password" placeholder="*********" type="password" />
-                      </FormGroup>
-                    </Col>
-                  </Row>
+
+              <Form className="mt-4 mb-4" onSubmit={update}>
+                <Row form>
                   <Col md={6}>
                     <FormGroup>
-                      <Label for="address">Osoite</Label>
-                      <Input id="address" name="address" placeholder={item.address} onChange={handleChange} />
+                      <Label for="firstname">Etunimi</Label>
+                      <Input id="firstname" name="firstname" value={formdata.firstname} type="text" onChange={handleChange} />
                     </FormGroup>
                   </Col>
-                  <Row form>
-                    <Col md={6}>
-                      <FormGroup>
-                        <Label for="city">Kaupunki</Label>
-                        <Input id="city" name="city" placeholder={item.city} onChange={handleChange} />
-                      </FormGroup>
-                    </Col>
-                    <Col md={4}></Col>
-                    <Col md={2}>
-                      <FormGroup>
-                        <Label for="postal_code">Postinumero</Label>
-                        <Input id="postal_code" name="postal_code" placeholder={item.postal_code} onChange={handleChange} />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Button>Tallenna</Button>
-                </Form>
-              ))}
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label for="lastname">Sukunimi</Label>
+                      <Input id="lastname" name="lastname" value={formdata.lastname} type="text" onChange={handleChange} />
+                    </FormGroup>
+                  </Col>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label for="email">Sähköposti</Label>
+                      <Input id="email" name="email" value={formdata.email} type="email" onChange={handleChange} />
+                    </FormGroup>
+                  </Col>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label for="password">Salasana</Label>
+                      <Input id="password" name="password" placeholder="*********" type="password" />
+                    </FormGroup>
+                  </Col>
+                </Row>
+                <Col md={6}>
+                  <FormGroup>
+                    <Label for="address">Osoite</Label>
+                    <Input id="address" name="address" value={formdata.address} onChange={handleChange} />
+                  </FormGroup>
+                </Col>
+                <Row form>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label for="city">Kaupunki</Label>
+                      <Input id="city" name="city" value={formdata.city} onChange={handleChange} />
+                    </FormGroup>
+                  </Col>
+                  <Col md={4}></Col>
+                  <Col md={2}>
+                    <FormGroup>
+                      <Label for="postal_code">Postinumero</Label>
+                      <Input id="postal_code" name="postal_code" value={formdata.postal_code} onChange={handleChange} />
+                    </FormGroup>
+                  </Col>
+                </Row>
+                <Button>Tallenna</Button>
+              </Form>
             </Col>
           </Row>
         </TabPane>
