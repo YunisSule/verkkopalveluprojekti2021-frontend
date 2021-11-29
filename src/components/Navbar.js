@@ -3,11 +3,8 @@ import Logo from '../images/Fribashoplogo.svg';
 import React from 'react';
 import { Navbar, NavbarToggler, NavbarBrand, Collapse, NavItem, Nav, NavLink, Input, Button } from 'reactstrap';
 import { useState } from 'react';
-import { useLocation } from 'react-router';
 
 export default function NavBar() {
-  const location = useLocation();
-
   const [isOpen, setIsOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState('');
@@ -110,7 +107,7 @@ export default function NavBar() {
                 width="16"
                 height="16"
                 fill="currentColor"
-                class="bi bi-gear"
+                className="bi bi-gear"
                 viewBox="0 0 16 16"
                 color="white"
               >

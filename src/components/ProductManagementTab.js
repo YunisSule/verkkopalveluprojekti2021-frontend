@@ -2,24 +2,31 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Container, Spinner, Table } from 'reactstrap';
 import EditProductModal from './EditProductModal';
+import ProductDropdown from './TableDropdown';
+import trimString from '../util/tableutil';
 
 export default function ProductManagementTab() {
   const baseURL = 'http://localhost/verkkopalveluprojekti2021-backend';
-  const MAX_LENGTH = 100;
+  const TABLE_DATA_MAX_LENGTH = 100;
   const [products, setProducts] = useState([]);
   const [clickedProduct, setClickedProduct] = useState({});
   const [openModal, setOpenModal] = useState(false);
+
   const modalShow = () => setOpenModal(true);
   const modalHide = () => setOpenModal(false);
 
-  const fetchProducts = () => {
+  const fetchProducts = async () => {
     try {
-      axios.get(`${baseURL}/product/getallproducts.php`).then((res) => {
-        setProducts(res.data);
-      });
+      const res = await axios.get(`${baseURL}/product/getallproducts.php`);
+      await setProducts(res.data);
     } catch (error) {
       alert(error);
     }
+  };
+
+  const deleteProduct = async (id) => {
+    await axios.delete(`${baseURL}/product/deleteproductbyid.php?id=${id}`);
+    await fetchProducts();
   };
 
   useEffect(() => {
@@ -30,47 +37,42 @@ export default function ProductManagementTab() {
     <Container>
       <h2 className="text-center mt-3">Tuotteiden hallinta</h2>
       {products.length !== 0 ? (
-        <Table striped hover responsive>
+        <Table hover responsive className="table-sm">
           <thead>
             <tr>
-              <th>Product ID</th>
-              <th>Name</th>
-              <th>Brand</th>
-              <th>Description</th>
-              <th>Image path</th>
-              <th>Price</th>
-              <th>Category ID</th>
-              <th>Color</th>
-              <th>Stock</th>
-              <th>Speed</th>
-              <th>Glide</th>
-              <th>Turn</th>
-              <th>Fade</th>
+              <th></th>
+              <th>Tuote ID</th>
+              <th>Nimi</th>
+              <th>Brändi</th>
+              <th>Kuvaus</th>
+              <th>Kuvan polku</th>
+              <th>Hinta</th>
+              <th>Kategoria ID</th>
+              <th>Väri</th>
+              <th>Varastossa</th>
+              <th>Nopeus</th>
+              <th>Liito</th>
+              <th>Vakaus</th>
+              <th>Feidi</th>
             </tr>
           </thead>
           <tbody>
             {products.map((product) => {
               return (
-                <tr
-                  key={product.product_id}
-                  onClick={() => {
-                    setClickedProduct(product);
-                    modalShow();
-                  }}
-                  item={product}
-                >
-                  {Object.values(product).map((value, index) => {
-                    return (
-                      <td key={index}>
-                        {value !== null
-                          ? value.length > MAX_LENGTH
-                            ? value.substring(0, MAX_LENGTH) + '...'
-                            : value
-                          : '-'}
-                      </td>
-                    );
-                  })}
-                </tr>
+                <>
+                  <tr key={product.product_id} item={product}>
+                    <ProductDropdown
+                      onEditClick={() => {
+                        setClickedProduct(product);
+                        modalShow();
+                      }}
+                      onDeleteClick={() => deleteProduct(product.product_id)}
+                    />
+                    {Object.values(product).map((value, index) => {
+                      return <td key={index}>{value !== null ? trimString(TABLE_DATA_MAX_LENGTH, value) : '-'}</td>;
+                    })}
+                  </tr>
+                </>
               );
             })}
           </tbody>
