@@ -1,22 +1,5 @@
 import { useState, useEffect } from 'react';
-import {
-  Nav,
-  NavItem,
-  NavLink,
-  TabContent,
-  TabPane,
-  Row,
-  Col,
-  Form,
-  FormGroup,
-  Input,
-  Label,
-  Button,
-  Table,
-  Modal,
-  ModalHeader,
-  ModalBody,
-} from 'reactstrap';
+import { Nav, NavItem, NavLink, TabContent, TabPane, Row, Col, Form, FormGroup, Input, Label, Button, Table, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import axiosInstance from '../axios';
 
 export default function Userpage() {
@@ -155,25 +138,13 @@ export default function Userpage() {
                   <Col md={6}>
                     <FormGroup>
                       <Label for="firstname">Etunimi</Label>
-                      <Input
-                        id="firstname"
-                        name="firstname"
-                        value={formdata.firstname}
-                        type="text"
-                        onChange={handleChange}
-                      />
+                      <Input id="firstname" name="firstname" value={formdata.firstname} type="text" onChange={handleChange} />
                     </FormGroup>
                   </Col>
                   <Col md={6}>
                     <FormGroup>
                       <Label for="lastname">Sukunimi</Label>
-                      <Input
-                        id="lastname"
-                        name="lastname"
-                        value={formdata.lastname}
-                        type="text"
-                        onChange={handleChange}
-                      />
+                      <Input id="lastname" name="lastname" value={formdata.lastname} type="text" onChange={handleChange} />
                     </FormGroup>
                   </Col>
                   <Col md={6}>
@@ -188,21 +159,18 @@ export default function Userpage() {
                       <Input id="password" name="password" placeholder="*********" type="password" />
                     </FormGroup>
                   </Col>
-                </Row>
-                <Col md={6}>
-                  <FormGroup>
-                    <Label for="address">Osoite</Label>
-                    <Input id="address" name="address" value={formdata.address} onChange={handleChange} />
-                  </FormGroup>
-                </Col>
-                <Row form>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label for="address">Osoite</Label>
+                      <Input id="address" name="address" value={formdata.address} onChange={handleChange} />
+                    </FormGroup>
+                  </Col>
                   <Col md={6}>
                     <FormGroup>
                       <Label for="city">Kaupunki</Label>
                       <Input id="city" name="city" value={formdata.city} onChange={handleChange} />
                     </FormGroup>
                   </Col>
-                  <Col md={4}></Col>
                   <Col md={2}>
                     <FormGroup>
                       <Label for="postal_code">Postinumero</Label>
@@ -231,7 +199,7 @@ export default function Userpage() {
                 <tbody>
                   {orderHistory.map((item) => (
                     <tr
-                      onClick={function noRefCheck() {
+                      onClick={() => {
                         setModal(!modal);
                         setOrderId(item.order_id);
                       }}
@@ -251,7 +219,7 @@ export default function Userpage() {
         <Modal isOpen={modal}>
           <ModalHeader
             charCode="Y"
-            toggle={function noRefCheck() {
+            toggle={() => {
               setModal(!modal);
             }}
           >
