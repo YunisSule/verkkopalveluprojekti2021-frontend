@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom'
-import Logo from '../images/Fribashoplogo.svg'
-import React from 'react'
+import { Link } from 'react-router-dom';
+import Logo from '../images/Fribashoplogo.svg';
+import React from 'react';
 import {
   Navbar,
   NavbarToggler,
@@ -16,41 +16,37 @@ import {
   ModalBody,
   ModalFooter,
   Form,
-  FormGroup
-} from 'reactstrap'
-import { useState } from 'react'
-import { useLocation } from 'react-router'
-import axios from 'axios'
-import Shoppingcart from './Shoppingcart'
+  FormGroup,
+} from 'reactstrap';
+import { useState } from 'react';
+import { useLocation } from 'react-router';
+import Shoppingcart from './Shoppingcart';
+import axiosInstance from '../axios';
 
-export default function NavBar ({ cart }) {
-  const location = useLocation()
+export default function NavBar({ cart }) {
+  const location = useLocation();
 
-  const [isOpen, setIsOpen] = useState(false)
-  const [searchOpen, setSearchOpen] = useState(false)
-  const [query, setQuery] = useState('')
-  const [signInModal, setSignInModal] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [query, setQuery] = useState('');
+  const [signInModal, setSignInModal] = useState(false);
   const userdata = {
     email: '',
-    passwd: ''
-  }
+    passwd: '',
+  };
 
-  function signIn () {
-    axios
-      .post(
-        'http://localhost/verkkopalveluprojekti2021-backend/auth/login.php',
-        '',
-        {
-          headers: {
-            Authorization:
-              'Basic ' +
-              Buffer.from(userdata.email + ':' + userdata.passwd).toString(
-                'base64'
-              )
-          },
-          withCredentials: true
-        }
-      )
+  function signIn() {
+    axiosInstance
+      .post('/auth/login.php', '', {
+        headers: {
+          Authorization:
+            'Basic ' +
+            Buffer.from(userdata.email + ':' + userdata.passwd).toString(
+              'base64'
+            )
+        },
+        withCredentials: true
+      })
       .then(response => {
         //sessionStorage.setItem('token', response.data)
         console.log(response)
@@ -126,7 +122,7 @@ export default function NavBar ({ cart }) {
             <Shoppingcart cart={cart} />
           </NavLink>
           <NavLink>
-            <Link to='/kirjautuminen'>
+            <Link to="/omatsivut">
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 width='20'

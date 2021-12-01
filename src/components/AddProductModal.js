@@ -1,19 +1,19 @@
+import axiosInstance from '../axios';
 import { useState } from 'react';
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
-import axiosInstance from '../axios';
 import ProductForm from './ProductForm';
 
-export default function EditProductModal({ item, onHide, onSubmit }) {
+export default function AddProductModal({ onHide, onSubmit }) {
   const [open, setOpen] = useState(true);
-  const [formData, setFormData] = useState(item);
+  const [formData, setFormData] = useState({});
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const submitForm = async (e) => {
+  const submitForm = (e) => {
     e.preventDefault();
-    await axiosInstance.post('/product/updateproduct.php', formData).catch((error) => alert(error));
+    axiosInstance.post('/product/postproduct.php', formData).catch((error) => alert(error));
   };
 
   const closeModal = () => {
@@ -24,7 +24,7 @@ export default function EditProductModal({ item, onHide, onSubmit }) {
   return (
     <Modal isOpen={open} scrollable>
       <ModalHeader charCode="Y" toggle={() => closeModal()}>
-        Muokkaa tuotetta
+        Lisää tuote
       </ModalHeader>
       <ModalBody>
         <ProductForm formData={formData} handleChange={handleChange} />
@@ -41,7 +41,7 @@ export default function EditProductModal({ item, onHide, onSubmit }) {
             onSubmit();
           }}
         >
-          Päivitä
+          Lisää
         </Button>
       </ModalFooter>
     </Modal>

@@ -1,21 +1,17 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Col, Row, Button, Container } from 'reactstrap';
 import { useLocation } from 'react-router';
+import axiosInstance from '../axios';
 
-const URL = 'http://localhost/verkkopalveluprojekti2021-backend/product/getproductbyid.php?id=';
-const image_path = 'http://localhost/verkkopalveluprojekti2021-backend/images/';
-
-export default function Productpage({addToCart}) {
-  const [item, setItem] = useState([])
-  const location = useLocation()
-  const { id } = location.state
+export default function Productpage({ addToCart }) {
+  const image_path = 'http://localhost/verkkopalveluprojekti2021-backend/images/';
+  const [item, setItem] = useState([]);
+  const location = useLocation();
+  const { id } = location.state;
 
   useEffect(() => {
-    const address = URL + id;
-
-    axios
-      .get(address)
+    axiosInstance
+      .get(`/product/getproductbyid.php?id=${id}`)
       .then((response) => {
         console.log(response.data);
         if (response.data != null) {
@@ -98,8 +94,9 @@ export default function Productpage({addToCart}) {
             </section>
             <div>
               <Button
-                  onClick={e => addToCart(item)} className='btn btn-lg mb-3 ml-auto ml-lg-3'
-                id='add-to-cart-button'
+                onClick={(e) => addToCart(item)}
+                className="btn btn-lg mb-3 ml-auto ml-lg-3"
+                id="add-to-cart-button"
               >
                 <span>Lisää ostoskoriin</span>
               </Button>

@@ -19,6 +19,7 @@
 }
 
 .searchBox {
+  margin-left: 1em;
   display: inline-flex !important;
   align-self: flex-end !important;
 }
@@ -175,3 +176,20 @@ body {
   padding-right: 30px;
 }
 /* STYLING FOR USERPAGE */
+
+/* STYLING FOR ADMIN PANEL */
+
+.product-dropdown-item {
+  padding: 0.5em 1em;
+  user-select: none;
+  font-weight: 500;
+  color: white;
+}
+
+.product-dropdown-item:hover {
+  background-color: #555555;
+}
+
+.product-dropdown-item:active {
+  background-color: #666666;
+}

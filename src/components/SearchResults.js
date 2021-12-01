@@ -1,30 +1,25 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'reactstrap';
 import { useLocation } from 'react-router';
-
-// This page shows search results
-const URL = 'http://localhost/verkkopalveluprojekti2021-backend/product/searchproduct.php?query=';
-const image_path = 'http://localhost/verkkopalveluprojekti2021-backend/images/';
+import axiosInstance from '../axios';
 
 export default function SearchResults() {
+  const image_path = 'http://localhost/verkkopalveluprojekti2021-backend/images/';
   const [products, setProducts] = useState([]);
   const location = useLocation();
   const { query } = location.state;
 
-  const address = URL + query;
-
   useEffect(() => {
-    axios
-      .get(address)
+    axiosInstance
+      .get(`/product/searchproduct.php?query=${query}`)
       .then((response) => {
         setProducts(response.data);
       })
       .catch((error) => {
         alert(error);
       });
-  }, [address]);
+  }, [query]);
 
   return (
     <div className="col-8 offset-2">

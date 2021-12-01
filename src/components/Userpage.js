@@ -1,12 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Nav, NavItem, NavLink, TabContent, TabPane, Row, Col, Form, FormGroup, Input, Label, Button, Table, Modal, ModalHeader, ModalBody } from 'reactstrap';
-import axios from 'axios';
-
-const URL = 'http://localhost/verkkopalveluprojekti2021-backend/';
-const USER_INFO = '/user/getallusers.php';
-const ORDER_INFO = '/order/getorderinfo.php?id=';
-const ORDER_HISTORY = '/order/getorders.php?id=1';
-const UPDATE_USER_INFO = '/user/updateuserinfo.php?id=1';
+import axiosInstance from '../axios';
 
 export default function Userpage() {
   const [activeTab, setActiveTab] = useState('1');
@@ -15,15 +9,13 @@ export default function Userpage() {
   const [orderInfo, setOrderInfo] = useState([]);
   const [modal, setModal] = useState(false);
   const [orderId, setOrderId] = useState('');
-  const [formdata, setFormdata] = useState({});
-
-  const address = URL;
+  const [formdata, setFormdata] = useState([]);
 
   // Get user info to user variable
 
   useEffect(() => {
-    axios
-      .get(address + USER_INFO)
+    axiosInstance
+      .get('/user/getuserbyid.php?id=1')
       .then((response) => {
         setUser(response.data);
       })
@@ -35,8 +27,8 @@ export default function Userpage() {
   // Get order info to orderInfo variable
 
   useEffect(() => {
-    axios
-      .get(address + ORDER_INFO + orderId)
+    axiosInstance
+      .get(`/order/getorderinfo.php?id=${orderId}`)
       .then((response) => {
         setOrderInfo(response.data);
       })
@@ -48,8 +40,8 @@ export default function Userpage() {
   // Get order history to orderHistory variable
 
   useEffect(() => {
-    axios
-      .get(address + ORDER_HISTORY)
+    axiosInstance
+      .get('/order/getorders.php?id=1')
       .then((response) => {
         setOrderHistory(response.data);
       })
@@ -61,12 +53,8 @@ export default function Userpage() {
   // Update user info: firstname, lastname, email, address, city and postal code by ID. posts JSON data
 
   function update() {
-    axios
-      .post(URL + UPDATE_USER_INFO, formdata, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
+    axiosInstance
+      .post('/user/updateuserinfo.php?id=1', formdata)
       .then((response) => {})
       .catch((error) => {
         alert(error);
@@ -88,7 +76,13 @@ export default function Userpage() {
           </NavLink>
         </NavItem>
         <NavItem>
-          <NavLink className={activeTab === '2' ? 'active' : 'text-dark'} onClick={() => setActiveTab('2')}>
+          <NavLink
+            className={activeTab === '2' ? 'active' : 'text-dark'}
+            onClick={() => {
+              setFormdata(user[0]);
+              setActiveTab('2');
+            }}
+          >
             Muokkaa tietoja
           </NavLink>
         </NavItem>
@@ -138,58 +132,54 @@ export default function Userpage() {
           <Row>
             <Col sm="12" className="mt-4">
               <h4>Muokkaa tietoja</h4>
-              {user.map((item) => (
-                <Form className="mt-4 mb-4" onSubmit={update}>
-                  <Row form>
-                    <Col md={6}>
-                      <FormGroup>
-                        <Label for="firstname">Etunimi</Label>
-                        <Input id="firstname" name="firstname" placeholder={item.firstname} type="text" onChange={handleChange} />
-                      </FormGroup>
-                    </Col>
-                    <Col md={6}>
-                      <FormGroup>
-                        <Label for="lastname">Sukunimi</Label>
-                        <Input id="lastname" name="lastname" placeholder={item.lastname} type="text" onChange={handleChange} />
-                      </FormGroup>
-                    </Col>
-                    <Col md={6}>
-                      <FormGroup>
-                        <Label for="email">Sähköposti</Label>
-                        <Input id="email" name="email" placeholder={item.email} type="email" onChange={handleChange} />
-                      </FormGroup>
-                    </Col>
-                    <Col md={6}>
-                      <FormGroup>
-                        <Label for="password">Salasana</Label>
-                        <Input id="password" name="password" placeholder="*********" type="password" />
-                      </FormGroup>
-                    </Col>
-                  </Row>
+
+              <Form className="mt-4 mb-4" onSubmit={update}>
+                <Row form>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label for="firstname">Etunimi</Label>
+                      <Input id="firstname" name="firstname" value={formdata.firstname} type="text" onChange={handleChange} />
+                    </FormGroup>
+                  </Col>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label for="lastname">Sukunimi</Label>
+                      <Input id="lastname" name="lastname" value={formdata.lastname} type="text" onChange={handleChange} />
+                    </FormGroup>
+                  </Col>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label for="email">Sähköposti</Label>
+                      <Input id="email" name="email" value={formdata.email} type="email" onChange={handleChange} />
+                    </FormGroup>
+                  </Col>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label for="password">Salasana</Label>
+                      <Input id="password" name="password" placeholder="*********" type="password" />
+                    </FormGroup>
+                  </Col>
                   <Col md={6}>
                     <FormGroup>
                       <Label for="address">Osoite</Label>
-                      <Input id="address" name="address" placeholder={item.address} onChange={handleChange} />
+                      <Input id="address" name="address" value={formdata.address} onChange={handleChange} />
                     </FormGroup>
                   </Col>
-                  <Row form>
-                    <Col md={6}>
-                      <FormGroup>
-                        <Label for="city">Kaupunki</Label>
-                        <Input id="city" name="city" placeholder={item.city} onChange={handleChange} />
-                      </FormGroup>
-                    </Col>
-                    <Col md={4}></Col>
-                    <Col md={2}>
-                      <FormGroup>
-                        <Label for="postal_code">Postinumero</Label>
-                        <Input id="postal_code" name="postal_code" placeholder={item.postal_code} onChange={handleChange} />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Button>Tallenna</Button>
-                </Form>
-              ))}
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label for="city">Kaupunki</Label>
+                      <Input id="city" name="city" value={formdata.city} onChange={handleChange} />
+                    </FormGroup>
+                  </Col>
+                  <Col md={2}>
+                    <FormGroup>
+                      <Label for="postal_code">Postinumero</Label>
+                      <Input id="postal_code" name="postal_code" value={formdata.postal_code} onChange={handleChange} />
+                    </FormGroup>
+                  </Col>
+                </Row>
+                <Button>Tallenna</Button>
+              </Form>
             </Col>
           </Row>
         </TabPane>
@@ -209,7 +199,7 @@ export default function Userpage() {
                 <tbody>
                   {orderHistory.map((item) => (
                     <tr
-                      onClick={function noRefCheck() {
+                      onClick={() => {
                         setModal(!modal);
                         setOrderId(item.order_id);
                       }}
@@ -229,7 +219,7 @@ export default function Userpage() {
         <Modal isOpen={modal}>
           <ModalHeader
             charCode="Y"
-            toggle={function noRefCheck() {
+            toggle={() => {
               setModal(!modal);
             }}
           >
