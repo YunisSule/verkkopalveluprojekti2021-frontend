@@ -1,13 +1,12 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Button, Container, Spinner, Table } from 'reactstrap';
 import EditProductModal from './EditProductModal';
 import ProductDropdown from './TableDropdown';
 import trimString from '../util/tableutil';
 import AddProductModal from './AddProductModal';
+import axiosInstance from '../axios';
 
 export default function ProductManagementTab() {
-  const baseURL = 'http://localhost/verkkopalveluprojekti2021-backend';
   const TABLE_DATA_MAX_LENGTH = 100;
   const [products, setProducts] = useState([]);
   const [clickedProduct, setClickedProduct] = useState({});
@@ -22,7 +21,7 @@ export default function ProductManagementTab() {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get(`${baseURL}/product/getallproducts.php`);
+      const res = await axiosInstance.get(`/product/getallproducts.php`);
       setProducts(res.data);
     } catch (error) {
       alert(error);
@@ -30,7 +29,7 @@ export default function ProductManagementTab() {
   };
 
   const deleteProduct = async (id) => {
-    await axios.delete(`${baseURL}/product/deleteproductbyid.php?id=${id}`);
+    await axiosInstance.delete(`/product/deleteproductbyid.php?id=${id}`);
     await fetchProducts();
   };
 

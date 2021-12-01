@@ -20,8 +20,8 @@ import {
 } from 'reactstrap';
 import { useState } from 'react';
 import { useLocation } from 'react-router';
-import axios from 'axios';
 import Shoppingcart from './Shoppingcart';
+import axiosInstance from '../axios';
 
 export default function NavBar({ cart }) {
   const location = useLocation();
@@ -36,8 +36,8 @@ export default function NavBar({ cart }) {
   };
 
   function signIn() {
-    axios
-      .post('http://localhost/verkkopalveluprojekti2021-backend/signin', '', {
+    axiosInstance
+      .post('/signin', '', {
         headers: { Authorization: 'Basic ' + Buffer.from(userdata.email + ':' + userdata.passwd).toString('base64') },
         withCredentials: true,
       })

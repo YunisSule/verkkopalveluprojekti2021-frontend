@@ -1,22 +1,18 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'reactstrap';
-
-// This page shows all discs
-const URL = 'http://localhost/verkkopalveluprojekti2021-backend/product/getproductbycategory.php?id=';
-const image_path = 'http://localhost/verkkopalveluprojekti2021-backend/images/';
+import axiosInstance from '../axios';
 
 export default function ShowDiscs() {
+  const image_path = 'http://localhost/verkkopalveluprojekti2021-backend/images/';
   const [products, setProducts] = useState([]);
 
   //Disc category id
   const id = 1;
-  const address = URL + id;
 
   useEffect(() => {
-    axios
-      .get(address)
+    axiosInstance
+      .get(`/product/getproductbycategory.php?id=${id}`)
       .then((response) => {
         setProducts(response.data);
       })

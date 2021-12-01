@@ -1,12 +1,23 @@
 import { useState, useEffect } from 'react';
-import { Nav, NavItem, NavLink, TabContent, TabPane, Row, Col, Form, FormGroup, Input, Label, Button, Table, Modal, ModalHeader, ModalBody } from 'reactstrap';
-import axios from 'axios';
-
-const URL = 'http://localhost/verkkopalveluprojekti2021-backend/';
-const USER_INFO = '/user/getuserbyid.php?id=1';
-const ORDER_INFO = '/order/getorderinfo.php?id=';
-const ORDER_HISTORY = '/order/getorders.php?id=1';
-const UPDATE_USER_INFO = '/user/updateuserinfo.php?id=1';
+import {
+  Nav,
+  NavItem,
+  NavLink,
+  TabContent,
+  TabPane,
+  Row,
+  Col,
+  Form,
+  FormGroup,
+  Input,
+  Label,
+  Button,
+  Table,
+  Modal,
+  ModalHeader,
+  ModalBody,
+} from 'reactstrap';
+import axiosInstance from '../axios';
 
 export default function Userpage() {
   const [activeTab, setActiveTab] = useState('1');
@@ -17,13 +28,11 @@ export default function Userpage() {
   const [orderId, setOrderId] = useState('');
   const [formdata, setFormdata] = useState([]);
 
-  const address = URL;
-
   // Get user info to user variable
 
   useEffect(() => {
-    axios
-      .get(address + USER_INFO)
+    axiosInstance
+      .get('/user/getuserbyid.php?id=1')
       .then((response) => {
         setUser(response.data);
       })
@@ -35,8 +44,8 @@ export default function Userpage() {
   // Get order info to orderInfo variable
 
   useEffect(() => {
-    axios
-      .get(address + ORDER_INFO + orderId)
+    axiosInstance
+      .get(`/order/getorderinfo.php?id=${orderId}`)
       .then((response) => {
         setOrderInfo(response.data);
       })
@@ -48,8 +57,8 @@ export default function Userpage() {
   // Get order history to orderHistory variable
 
   useEffect(() => {
-    axios
-      .get(address + ORDER_HISTORY)
+    axiosInstance
+      .get('/order/getorders.php?id=1')
       .then((response) => {
         setOrderHistory(response.data);
       })
@@ -61,12 +70,8 @@ export default function Userpage() {
   // Update user info: firstname, lastname, email, address, city and postal code by ID. posts JSON data
 
   function update() {
-    axios
-      .post(URL + UPDATE_USER_INFO, formdata, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
+    axiosInstance
+      .post('/user/updateuserinfo.php?id=1', formdata)
       .then((response) => {})
       .catch((error) => {
         alert(error);
@@ -150,13 +155,25 @@ export default function Userpage() {
                   <Col md={6}>
                     <FormGroup>
                       <Label for="firstname">Etunimi</Label>
-                      <Input id="firstname" name="firstname" value={formdata.firstname} type="text" onChange={handleChange} />
+                      <Input
+                        id="firstname"
+                        name="firstname"
+                        value={formdata.firstname}
+                        type="text"
+                        onChange={handleChange}
+                      />
                     </FormGroup>
                   </Col>
                   <Col md={6}>
                     <FormGroup>
                       <Label for="lastname">Sukunimi</Label>
-                      <Input id="lastname" name="lastname" value={formdata.lastname} type="text" onChange={handleChange} />
+                      <Input
+                        id="lastname"
+                        name="lastname"
+                        value={formdata.lastname}
+                        type="text"
+                        onChange={handleChange}
+                      />
                     </FormGroup>
                   </Col>
                   <Col md={6}>

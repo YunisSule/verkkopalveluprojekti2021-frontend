@@ -1,10 +1,9 @@
-import axios from 'axios';
 import { useState } from 'react';
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
+import axiosInstance from '../axios';
 import ProductForm from './ProductForm';
 
 export default function EditProductModal({ item, onHide, onSubmit }) {
-  const baseURL = 'http://localhost/verkkopalveluprojekti2021-backend';
   const [open, setOpen] = useState(true);
   const [formData, setFormData] = useState(item);
 
@@ -12,13 +11,9 @@ export default function EditProductModal({ item, onHide, onSubmit }) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const submitForm = (e) => {
+  const submitForm = async (e) => {
     e.preventDefault();
-    axios
-      .post(baseURL + '/product/updateproduct.php', formData, {
-        headers: { 'Content-Type': 'application/json; charset=utf-8' },
-      })
-      .catch((error) => alert(error));
+    await axiosInstance.post('/product/updateproduct.php', formData).catch((error) => alert(error));
   };
 
   const closeModal = () => {
