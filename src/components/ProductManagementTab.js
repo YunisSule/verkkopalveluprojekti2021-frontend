@@ -1,24 +1,29 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Container, Spinner, Table } from 'reactstrap';
+import { Button, Container, Spinner, Table } from 'reactstrap';
 import EditProductModal from './EditProductModal';
 import ProductDropdown from './TableDropdown';
 import trimString from '../util/tableutil';
+import AddProductModal from './AddProductModal';
 
 export default function ProductManagementTab() {
   const baseURL = 'http://localhost/verkkopalveluprojekti2021-backend';
   const TABLE_DATA_MAX_LENGTH = 100;
   const [products, setProducts] = useState([]);
   const [clickedProduct, setClickedProduct] = useState({});
-  const [openModal, setOpenModal] = useState(false);
 
-  const modalShow = () => setOpenModal(true);
-  const modalHide = () => setOpenModal(false);
+  const [openAddModal, setOpenAddModal] = useState(false);
+  const addModalShow = () => setOpenAddModal(true);
+  const addModalHide = () => setOpenAddModal(false);
+
+  const [openEditModal, setOpenEditModal] = useState(false);
+  const editModalShow = () => setOpenEditModal(true);
+  const editModalHide = () => setOpenEditModal(false);
 
   const fetchProducts = async () => {
     try {
       const res = await axios.get(`${baseURL}/product/getallproducts.php`);
-      await setProducts(res.data);
+      setProducts(res.data);
     } catch (error) {
       alert(error);
     }
@@ -31,11 +36,26 @@ export default function ProductManagementTab() {
 
   useEffect(() => {
     fetchProducts();
-  }, [openModal]);
+  }, [openEditModal, openAddModal]);
 
   return (
     <Container>
-      <h2 className="text-center mt-3">Tuotteiden hallinta</h2>
+      <div className="d-flex justify-content-between align-items-center my-3">
+        <h2 className="d-inline">Tuotteiden hallinta</h2>
+        <Button className="d-flex ps-2 align-items-center" onClick={() => addModalShow()}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="currentColor"
+            className="bi bi-plus"
+            viewBox="0 0 16 16"
+          >
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+          </svg>
+          Lisää
+        </Button>
+      </div>
       {products.length !== 0 ? (
         <Table hover responsive className="table-sm">
           <thead>
@@ -64,7 +84,7 @@ export default function ProductManagementTab() {
                     <ProductDropdown
                       onEditClick={() => {
                         setClickedProduct(product);
-                        modalShow();
+                        editModalShow();
                       }}
                       onDeleteClick={() => deleteProduct(product.product_id)}
                     />
@@ -83,7 +103,11 @@ export default function ProductManagementTab() {
         </div>
       )}
 
-      {openModal ? <EditProductModal item={clickedProduct} onSubmit={fetchProducts} onHide={modalHide} /> : null}
+      {openEditModal ? (
+        <EditProductModal item={clickedProduct} onSubmit={fetchProducts} onHide={editModalHide} />
+      ) : null}
+
+      {openAddModal ? <AddProductModal onSubmit={fetchProducts} onHide={addModalHide} /> : null}
     </Container>
   );
 }
