@@ -21,7 +21,7 @@ export default function Productpage({addToCart}) {
         if (response.data != null) {
           setItem(response.data[0]);
         } else {
-          alert('Product not found');
+          alert('Tuotetta ei löydy');
         }
       })
       .catch((error) => {
