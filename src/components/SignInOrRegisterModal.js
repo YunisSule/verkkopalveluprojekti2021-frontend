@@ -3,8 +3,7 @@ import { Row, Col, Form, FormGroup, Input, Label, Button, Table, Modal, ModalHea
 import SubmitOrder from './submitOrder';
 import axiosInstance from '../axios';
 
-export default function SignInOrRegisterModal({ modal, close }) {
-  const [orderModal, setOrderModal] = useState(false);
+export default function SignInOrRegisterModal({ modal, close, openReg }) {
   const userdata = {
     email: '',
     passwd: ''
@@ -26,12 +25,8 @@ export default function SignInOrRegisterModal({ modal, close }) {
       .catch((error) => alert('väärä sähköposti tai salasana'));
   }
 
-  function closeModal() {
-    close();
-  }
-
   function modalClose() {
-    setOrderModal(false);
+    close();
   }
 
   return (
@@ -39,7 +34,7 @@ export default function SignInOrRegisterModal({ modal, close }) {
       <ModalHeader
         charCode="Y"
         toggle={() => {
-          closeModal();
+          modalClose();
         }}
       >
         Kirjaudu
@@ -64,12 +59,11 @@ export default function SignInOrRegisterModal({ modal, close }) {
             </Button>
             <Button
               onClick={() => {
-                setOrderModal(!orderModal);
+                openReg();
               }}
             >
               Rekisteröidy ja tilaa
             </Button>
-            {orderModal ? <SubmitOrder modal={orderModal} close={modalClose} /> : null}
           </ModalFooter>
         </Form>
       </ModalBody>

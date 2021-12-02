@@ -2,13 +2,20 @@ import React from 'react';
 import { useState } from 'react';
 import { Button } from 'reactstrap';
 import SignInOrRegisterModal from './SignInOrRegisterModal';
+import SubmitOrder from './submitOrder';
 
 const image_path = 'http://localhost/verkkopalveluprojekti2021-backend/images/';
 
 export default function OrderPage({ cart, updateAmount }) {
   const [signInOrRegiserModal, setSignInOrRegiserModal] = useState(false);
+  const [orderModal, setOrderModal] = useState(false);
 
-  function modalClose() {
+  function openRegisterModal() {
+    setSignInOrRegiserModal(false);
+    setOrderModal(!orderModal);
+  }
+  function closeModals() {
+    setOrderModal(false);
     setSignInOrRegiserModal(false);
   }
 
@@ -37,7 +44,8 @@ export default function OrderPage({ cart, updateAmount }) {
         })}
       </table>
       <Button onClick={() => setSignInOrRegiserModal(!signInOrRegiserModal)}>Tilaa</Button>
-      {signInOrRegiserModal ? <SignInOrRegisterModal modal={signInOrRegiserModal} close={modalClose} /> : null}
+      {signInOrRegiserModal ? <SignInOrRegisterModal modal={signInOrRegiserModal} openReg={openRegisterModal} close={closeModals} /> : null}
+      {orderModal ? <SubmitOrder modal={orderModal} close={closeModals} /> : null}
     </div>
   );
 }
