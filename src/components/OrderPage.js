@@ -6,7 +6,7 @@ import SubmitOrder from './submitOrder';
 
 const image_path = 'http://localhost/verkkopalveluprojekti2021-backend/images/';
 
-export default function OrderPage({ cart, updateAmount }) {
+export default function OrderPage({ cart, updateAmount, removeItem }) {
   const [signInOrRegiserModal, setSignInOrRegiserModal] = useState(false);
   const [orderModal, setOrderModal] = useState(false);
 
@@ -39,6 +39,7 @@ export default function OrderPage({ cart, updateAmount }) {
               <td className="cart">
                 <input style={{ width: '50px' }} type="number" step="1" onChange={(e) => changeAmount(e, item)} value={item.amount} />
               </td>
+              <td><a href='#' onClick={() => removeItem(item)}>Delete</a></td>
             </tr>
           );
         })}
