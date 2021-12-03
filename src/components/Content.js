@@ -8,7 +8,7 @@ import ShowDiscs from './ShowDisc';
 import OrderPage from './OrderPage';
 import Userpage from './Userpage';
 
-export default function Content({addToCart, cart, updateAmount}) {
+export default function Content({addToCart, cart, updateAmount, removeItem}) {
   return (
     <div className="flex-grow-1 mb-5">
       <Switch>
@@ -17,7 +17,7 @@ export default function Content({addToCart, cart, updateAmount}) {
         <Route path="/kiekot" component={ShowDiscs} />
         <Route path="/kassit" component={ShowBags} />
         <Route path="/hakutulokset" component={SearchResults} />
-        <Route path='/ostoskori' render={() => <OrderPage cart={cart} updateAmount={updateAmount}/>} />
+        <Route path='/ostoskori' render={() => <OrderPage cart={cart} updateAmount={updateAmount} removeItem={removeItem}/>} />
         <Route path="/omatsivut" component={Userpage} />
         <Route path="/hallinta" component={Adminpage} exact />
       </Switch>
