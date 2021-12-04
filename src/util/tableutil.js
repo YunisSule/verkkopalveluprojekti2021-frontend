@@ -1,3 +1,3 @@
-export default function trimString(maxLength, string) {
-  return string.length > maxLength ? string.substring(0, maxLength) + '...' : string;
+export function trimString(string) {
+  return string.length > 80 ? string.substring(0, 80) + '...' : string;
 }

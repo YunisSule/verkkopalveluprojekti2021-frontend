@@ -2,8 +2,8 @@ import { Suspense } from 'react';
 import { useState } from 'react';
 import { Container, Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
 import ProductManagementPage from './ProductManagementTab';
-import OrderManagementPage from './OrderManagementPage';
-import UserManagementPage from './UserManagementPage';
+import UserManagementTab from './UserManagementTab';
+import OrderManagementTab from './OrderManagementTab';
 
 export default function Adminpage() {
   const [activeTab, setactiveTab] = useState('1');
@@ -31,10 +31,10 @@ export default function Adminpage() {
               <ProductManagementPage />
             </TabPane>
             <TabPane tabId="2">
-              <OrderManagementPage />
+              <OrderManagementTab />
             </TabPane>
             <TabPane tabId="3">
-              <UserManagementPage />
+              <UserManagementTab />
             </TabPane>
           </Suspense>
         </TabContent>

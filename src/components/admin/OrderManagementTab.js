@@ -1,6 +1,6 @@
 import { Container, Table } from 'reactstrap';
 
-export default function ProductManagementPage() {
+export default function OrderManagementTab() {
   return (
     <Container>
       <h2 className="text-center mt-3">Tilausten hallinta</h2>
