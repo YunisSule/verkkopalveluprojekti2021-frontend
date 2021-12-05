@@ -8,14 +8,15 @@ export default function SubmitOrder({ modal, close, cart }) {
   }
 
   function submit() {
-    let json = JSON.stringify(cart[0]);
-
     axiosInstance
-      .post('/order/postorder.php?user_id=1', json)
-      .then((response) => {})
+      .post('/order/postorder.php?user_id=1', cart)
+      .then((response) => {
+        alert('Tilaus lähetetty');
+      })
       .catch((error) => {
         alert(error);
       });
+    close();
   }
 
   return (
