@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Row, Col, Form, FormGroup, Input, Label, Button, Table, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import SubmitOrder from './submitOrder';
+import SubmitOrder from './Register';
 import axiosInstance from '../axios';
 
-export default function SignInOrRegisterModal({ modal, close, openReg }) {
+export default function SignInOrRegisterModal({ modal, close, openReg, openOrder }) {
   const userdata = {
     email: '',
     passwd: ''
@@ -19,10 +19,11 @@ export default function SignInOrRegisterModal({ modal, close, openReg }) {
       })
       .then((response) => {
         //sessionStorage.setItem('token', response.data)
-        console.log(response);
         alert('Kirjautuminen onnistui');
       })
       .catch((error) => alert('väärä sähköposti tai salasana'));
+
+    openOrder();
   }
 
   function modalClose() {
