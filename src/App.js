@@ -5,9 +5,11 @@ import Infobanner from './components/Infobanner'
 import Footer from './components/Footer'
 import { useState, useEffect } from 'react'
 import Productpage from './components/Productpage'
+import useToken from './components/useToken'
 
 function App () {
   const [cart, setCart] = useState([]) //shoppingcart variable
+  // const { token, setToken } = useToken()
   
   useEffect(() => {
     if ('cart' in localStorage) {

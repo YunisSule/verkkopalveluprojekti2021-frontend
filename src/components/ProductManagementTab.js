@@ -24,7 +24,7 @@ export default function ProductManagementTab() {
       const res = await axiosInstance.get(`/product/getallproducts.php`);
       setProducts(res.data);
     } catch (error) {
-      alert(error);
+      alert(error.response ? error.response.data.error : error);
     }
   };
 

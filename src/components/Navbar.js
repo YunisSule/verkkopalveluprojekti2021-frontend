@@ -18,42 +18,20 @@ import {
   Form,
   FormGroup,
 } from 'reactstrap';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router';
 import Shoppingcart from './Shoppingcart';
+import Login from './Login';
 import axiosInstance from '../axios';
 
 export default function NavBar({ cart }) {
+  const [openLoginModal, setOpenLoginModal] = useState(false)
+  const loginModalShow = () => setOpenLoginModal(true)
+  const loginModalHide = () => setOpenLoginModal(false)
   const location = useLocation();
-
   const [isOpen, setIsOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState('');
-  const [signInModal, setSignInModal] = useState(false);
-  const userdata = {
-    email: '',
-    passwd: '',
-  };
-
-  function signIn() {
-    axiosInstance
-      .post('/auth/login.php', '', {
-        headers: {
-          Authorization:
-            'Basic ' +
-            Buffer.from(userdata.email + ':' + userdata.passwd).toString(
-              'base64'
-            )
-        },
-        withCredentials: true
-      })
-      .then(response => {
-        //sessionStorage.setItem('token', response.data)
-        console.log(response)
-        alert("Kirjautuminen onnistui")
-      })
-      .catch(error => alert("väärä sähköposti tai salasana") )
-  }
 
   return (
     <div>
@@ -156,9 +134,7 @@ export default function NavBar({ cart }) {
             <Button
               id='login-modal-toggle'
               color='none'
-              onClick={function noRefCheck () {
-                setSignInModal(!signInModal)
-              }}
+              onClick={() => loginModalShow()}
             >
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -179,51 +155,9 @@ export default function NavBar({ cart }) {
                 />
               </svg>
             </Button>
-            <Modal isOpen={signInModal} toggle={function noRefCheck () {}}>
-              <ModalHeader
-                toggle={function noRefCheck () {
-                  setSignInModal(!signInModal)
-                }}
-              >
-                Kirjaudu
-              </ModalHeader>
-              <ModalBody>
-                <Form id='login-form-modal' onSubmit={signIn}>
-                  <FormGroup>
-                    <label htmlFor='e-mail'>Sähköposti</label>
-                    <div>
-                      <Input
-                        name='e-mail'
-                        type='email'
-                        required='required'
-                        autoComplete='username'
-                        onChange={e => (userdata.email = e.target.value)}
-                      />
-                    </div>
-                  </FormGroup>
-                  <FormGroup>
-                    <label htmlFor='passwd'>Salasana</label>
-                    <div>
-                      <Input
-                        type='password'
-                        name='password'
-                        required='required'
-                        onChange={e => (userdata.passwd = e.target.value)}
-                      />
-                    </div>
-                  </FormGroup>
-                  <ModalFooter>
-                    <Button
-                      className='text-center'
-                      id='signin-button'
-                      color='primary'
-                    >
-                      Kirjaudu
-                    </Button>
-                  </ModalFooter>
-                </Form>
-              </ModalBody>
-            </Modal>
+            {openLoginModal ? (
+              <Login onHide={loginModalHide} />
+            ) : null}
           </NavItem>
         </div>
       </Navbar>
