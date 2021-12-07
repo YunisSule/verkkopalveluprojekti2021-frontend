@@ -89,15 +89,6 @@ export default function Register({ modal, close, openOrder }) {
                   <Label for="postal_code">Postinumero</Label>
                   <Input id="postal_code" name="postal_code" required onChange={handleChange} />
                 </FormGroup>
-                <Label>Laskutustapa</Label>
-                <FormGroup tag="fieldset">
-                  <FormGroup check>
-                    <Input name="radio1" type="radio" /> <Label check>Sähköposti</Label>
-                  </FormGroup>
-                  <FormGroup check>
-                    <Input name="radio1" type="radio" /> <Label check>Paperilasku</Label>
-                  </FormGroup>
-                </FormGroup>
               </Col>
             </Row>
             <Label>Rekisteröidy asiakkaaksi ja lähetä</Label>

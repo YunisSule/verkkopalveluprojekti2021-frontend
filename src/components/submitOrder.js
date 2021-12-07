@@ -1,4 +1,4 @@
-import { Button, Table, Modal, ModalHeader, ModalBody } from 'reactstrap';
+import { Button, Table, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input } from 'reactstrap';
 import axiosInstance from '../axios';
 
 export default function SubmitOrder({ modal, close, cart }) {
@@ -50,6 +50,17 @@ export default function SubmitOrder({ modal, close, cart }) {
               </tbody>
             ))}
           </Table>
+          <Form>
+            <Label>Laskutustapa</Label>
+            <FormGroup tag="fieldset">
+              <FormGroup check>
+                <Input name="radio1" type="radio" /> <Label check>Sähköposti</Label>
+              </FormGroup>
+              <FormGroup check>
+                <Input name="radio1" type="radio" /> <Label check>Paperilasku</Label>
+              </FormGroup>
+            </FormGroup>
+          </Form>
           <Button onClick={submit}>Tilaa</Button>
         </ModalBody>
       </Modal>
