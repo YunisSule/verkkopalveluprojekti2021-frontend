@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import { ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'reactstrap';
 import { useLocation } from 'react-router';
 import axiosInstance from '../axios';
+import { IMAGE_PATH } from '../App';
 
 export default function SearchResults() {
-  const image_path = 'http://localhost/verkkopalveluprojekti2021-backend/images/';
   const [products, setProducts] = useState([]);
   const location = useLocation();
   const { query } = location.state;
@@ -30,7 +30,7 @@ export default function SearchResults() {
           <ListGroupItem key={item.product_id}>
             <ListGroupItemHeading>{item.name}</ListGroupItemHeading>
             <Link to={{ pathname: '/product', state: { id: item.product_id } }}>
-              <img className="image_150px" src={image_path + item.image_path} alt="Product image" />
+              <img className="image_150px" src={IMAGE_PATH + item.image_path} alt="Product" />
             </Link>
             <ListGroupItemText>Hinta {item.price}</ListGroupItemText>
           </ListGroupItem>

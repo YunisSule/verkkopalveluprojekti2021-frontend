@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import { Col, Row, Button, Container } from 'reactstrap';
 import { useLocation } from 'react-router';
 import axiosInstance from '../axios';
+import { IMAGE_PATH } from '../App';
 
 export default function Productpage({ addToCart }) {
-  const image_path = 'http://localhost/verkkopalveluprojekti2021-backend/images/';
   const [item, setItem] = useState([]);
   const location = useLocation();
   const { id } = location.state;
@@ -42,7 +42,7 @@ export default function Productpage({ addToCart }) {
               <figure className="p-md-0" id="product-image">
                 <picture>
                   <source />
-                  <img src={image_path + item.image_path} alt="Product image" className="img-fluid p-1" />
+                  <img src={IMAGE_PATH + item.image_path} alt="Product" className="img-fluid p-1" />
                 </picture>
               </figure>
             </div>

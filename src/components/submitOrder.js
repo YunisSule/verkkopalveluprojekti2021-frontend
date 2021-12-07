@@ -1,5 +1,4 @@
-import { Row, Col, Form, FormGroup, Input, Label, Button, Table, Modal, ModalHeader, ModalBody } from 'reactstrap';
-import { useState } from 'react';
+import { Button, Table, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import axiosInstance from '../axios';
 
 export default function SubmitOrder({ modal, close, cart }) {

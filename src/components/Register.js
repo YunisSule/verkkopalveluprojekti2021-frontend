@@ -1,4 +1,4 @@
-import { Row, Col, Form, FormGroup, Input, Label, Button, Table, Modal, ModalHeader, ModalBody } from 'reactstrap';
+import { Row, Col, Form, FormGroup, Input, Label, Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { useState } from 'react';
 import axiosInstance from '../axios';
 
