@@ -3,9 +3,9 @@ import { useState, useEffect } from 'react';
 import { ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import axiosInstance from '../axios';
+import { IMAGE_PATH } from '../App';
 
 export default function Frontpage() {
-  const image_path = 'http://localhost/verkkopalveluprojekti2021-backend/images/';
   const [item, setItem] = useState([]);
   const [products, setProducts] = useState([]);
 
@@ -40,7 +40,9 @@ export default function Frontpage() {
           Frisbeekauppa
         </h1>
         <p className="text-center" id="text">
-          Kiekkojen erikiosliike<br></br>Parhaat tarjoukset, isoin valikoima, nopea toimitus
+          Kiekkojen erikoisliike
+          <br />
+          Parhaat tarjoukset, isoin valikoima, nopea toimitus
         </p>
       </div>
 
@@ -51,7 +53,7 @@ export default function Frontpage() {
             <ListGroupItem>
               <ListGroupItemHeading style={{ margin: '30px' }}>{item.name}</ListGroupItemHeading>
               <Link to={{ pathname: '/product', state: { id: item.product_id } }}>
-                <img className="image_150px" src={image_path + item.image_path} alt="Product image" />
+                <img className="image_150px" src={IMAGE_PATH + item.image_path} alt="Product" />
               </Link>
               <ListGroupItemText style={{ margin: '20px' }}>Hinta {item.price}</ListGroupItemText>
             </ListGroupItem>
@@ -67,7 +69,7 @@ export default function Frontpage() {
             <ListGroupItem style={{ marginBottom: '100px' }}>
               <ListGroupItemHeading style={{ margin: '30px' }}>{item.name}</ListGroupItemHeading>
               <Link to={{ pathname: '/product', state: { id: item.product_id } }}>
-                <img className="image_150px" src={image_path + item.image_path} alt="Product image" />
+                <img className="image_150px" src={IMAGE_PATH + item.image_path} alt="Product" />
               </Link>
               <ListGroupItemText style={{ margin: '20px' }}>Hinta {item.price}</ListGroupItemText>
             </ListGroupItem>

@@ -45,6 +45,7 @@
 #header {
   color: whitesmoke;
   margin-top: 10vh;
+  font-size: 3rem;
 }
 
 #text {
@@ -52,6 +53,7 @@
   margin-top: 30px;
   margin-bottom: 15vh;
   font-size: large;
+  font-weight: 500;
 }
 
 .productOfTheMonth {

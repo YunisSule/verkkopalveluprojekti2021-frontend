@@ -1,22 +1,30 @@
 import React from 'react';
 import { useState } from 'react';
-import { Button } from 'reactstrap';
+import { Button, Container } from 'reactstrap';
 import SignInOrRegisterModal from './SignInOrRegisterModal';
+import Register from './Register';
 import SubmitOrder from './submitOrder';
-
-const image_path = 'http://localhost/verkkopalveluprojekti2021-backend/images/';
+import { IMAGE_PATH } from '../App';
 
 export default function OrderPage({ cart, updateAmount, removeItem }) {
   const [signInOrRegiserModal, setSignInOrRegiserModal] = useState(false);
+  const [registerModal, setRegisterModal] = useState(false);
   const [orderModal, setOrderModal] = useState(false);
+
+  function openOrderModal() {
+    setSignInOrRegiserModal(false);
+    setRegisterModal(false);
+    setOrderModal(!orderModal);
+  }
 
   function openRegisterModal() {
     setSignInOrRegiserModal(false);
-    setOrderModal(!orderModal);
+    setRegisterModal(!registerModal);
   }
   function closeModals() {
-    setOrderModal(false);
+    setRegisterModal(false);
     setSignInOrRegiserModal(false);
+    setOrderModal(false);
   }
 
   function changeAmount(e, item) {
@@ -24,29 +32,45 @@ export default function OrderPage({ cart, updateAmount, removeItem }) {
   }
 
   return (
-    <div>
+    <Container>
       <h3>Shopping cart</h3>
       <table>
         {cart.map((item) => {
           return (
             <tr>
               <td>
-                <img className="cartimage" src={image_path + item.image_path} alt="Product image" />
+                <img className="cartimage" src={IMAGE_PATH + item.image_path} alt="Product" />
               </td>
               <td className="cart">{item.brand}</td>
               <td className="cart">{item.name}</td>
-              <td className="cart">{item.price} €</td>
+              <td className="cart">{(item.price * item.amount).toFixed(2)} €</td>
               <td className="cart">
-                <input style={{ width: '50px' }} type="number" step="1" onChange={(e) => changeAmount(e, item)} value={item.amount} />
+                <input
+                  style={{ width: '50px' }}
+                  type="number"
+                  step="1"
+                  onChange={(e) => changeAmount(e, item)}
+                  value={item.amount}
+                />
               </td>
-              <td><a href='#' onClick={() => removeItem(item)}>Delete</a></td>
+              <td>
+                <Button onClick={() => removeItem(item)}>Delete</Button>
+              </td>
             </tr>
           );
         })}
       </table>
       <Button onClick={() => setSignInOrRegiserModal(!signInOrRegiserModal)}>Tilaa</Button>
-      {signInOrRegiserModal ? <SignInOrRegisterModal modal={signInOrRegiserModal} openReg={openRegisterModal} close={closeModals} /> : null}
-      {orderModal ? <SubmitOrder modal={orderModal} close={closeModals} /> : null}
-    </div>
+      {signInOrRegiserModal ? (
+        <SignInOrRegisterModal
+          modal={signInOrRegiserModal}
+          openReg={openRegisterModal}
+          close={closeModals}
+          openOrder={openOrderModal}
+        />
+      ) : null}
+      {registerModal ? <Register modal={registerModal} close={closeModals} openOrder={openOrderModal} /> : null}
+      {orderModal ? <SubmitOrder modal={orderModal} close={closeModals} cart={cart} /> : null}
+    </Container>
   );
 }
