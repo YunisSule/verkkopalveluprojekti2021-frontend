@@ -24,29 +24,29 @@ function App() {
     }
   }, []);
 
-  function addToCart(item) {
-    //addToCart button function & item amount
-    /* if (cart.some(item => item.product_id)) {
-      const existingItem = cart.filter(item => item.product_id)
+  function addToCart(item) {      //Shopping cart add function
+     if (cart.some((i) => i.product_id === item.product_id)) {    
+      const existingItem = cart.filter((i) => i.product_id === item.product_id)
       updateAmount(parseInt(existingItem[0].amount) + 1, item)
       console.log(item);
-    } else {   */
+    } else {   
     item['amount'] = 1;
     const newCart = [...cart, item];
     setCart(newCart);
     localStorage.setItem('cart', JSON.stringify(newCart));
   }
+}
 
-  function updateAmount(amount, item) {
+  function updateAmount(amount, item) {     //Shopping cart amount function
     item.amount = amount;
-    const index = cart.findIndex((item) => item.id === item.product_id);
+    const index = cart.findIndex((i) => i.product_id === item.product_id);
     const modifiedCart = Object.assign([...cart], { [index]: item });
     setCart(modifiedCart);
     localStorage.setItem('cart', JSON.stringify(modifiedCart));
     console.log(cart);
   }
 
-  function removeItem(item) {
+  function removeItem(item) {     //Shopping cart delete function
     const itemsWithoutRemoved = cart.filter((i) => i.product_id !== item.product_id);
     setCart(itemsWithoutRemoved);
     localStorage.setItem('cart', JSON.stringify(itemsWithoutRemoved));
