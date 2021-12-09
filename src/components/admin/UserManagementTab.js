@@ -18,7 +18,7 @@ export default function UserManagementTab() {
 
   const getUsers = async () => {
     try {
-      const res = await axiosInstance.get('/user/getallusers.php');
+      const res = await axiosInstance.get('/user/getallusers.php', {withCredentials: true});
       setUsers(res.data);
     } catch (error) {
       alert(error);
@@ -27,7 +27,7 @@ export default function UserManagementTab() {
 
   const updateUser = async () => {
     try {
-      await axiosInstance.put('/user/updateuser.php', editFormData);
+      await axiosInstance.put('/user/updateuser.php', editFormData, {withCredentials: true});
       await getUsers();
     } catch (error) {
       alert(error);
@@ -36,7 +36,7 @@ export default function UserManagementTab() {
 
   const deleteUser = async (id) => {
     try {
-      await axiosInstance.delete(`/user/deleteuserbyid.php?id=${id}`);
+      await axiosInstance.delete(`/user/deleteuserbyid.php?id=${id}`, {withCredentials: true});
       await getUsers();
     } catch (error) {
       alert(error);

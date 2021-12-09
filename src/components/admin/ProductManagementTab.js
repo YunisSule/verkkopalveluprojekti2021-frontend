@@ -25,7 +25,7 @@ export default function ProductManagementTab() {
 
   const getProducts = async () => {
     try {
-      const res = await axiosInstance.get('/product/getallproducts.php');
+      const res = await axiosInstance.get('/product/getallproducts.php', {withCredentials: true});
       setProducts(res.data);
     } catch (error) {
       alert(error.response.data.error);
@@ -35,7 +35,7 @@ export default function ProductManagementTab() {
 
   const postProduct = async () => {
     try {
-      await axiosInstance.post('/product/postproduct.php', addFormData);
+      await axiosInstance.post('/product/postproduct.php', addFormData, {withCredentials: true});
       clearAddFormData();
     } catch (error) {
       console.error(error);
@@ -44,7 +44,7 @@ export default function ProductManagementTab() {
 
   const updateProduct = async () => {
     try {
-      await axiosInstance.post('/product/updateproduct.php', editFormData);
+      await axiosInstance.post('/product/updateproduct.php', editFormData, {withCredentials: true});
     } catch (error) {
       alert(error);
     }
@@ -52,7 +52,7 @@ export default function ProductManagementTab() {
 
   const deleteProduct = async (id) => {
     try {
-      await axiosInstance.delete(`/product/deleteproductbyid.php?id=${id}`);
+      await axiosInstance.delete(`/product/deleteproductbyid.php?id=${id}`, {withCredentials: true});
       await getProducts();
     } catch (error) {
       console.error(error);

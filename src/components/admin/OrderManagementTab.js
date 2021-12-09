@@ -25,7 +25,7 @@ export default function OrderManagementTab() {
 
   const getOrders = async () => {
     try {
-      const res = await axiosInstance.get('/order/getallorders.php');
+      const res = await axiosInstance.get('/order/getallorders.php', {withCredentials: true});
       setOrders(res.data);
     } catch (error) {
       alert(error);
@@ -34,7 +34,7 @@ export default function OrderManagementTab() {
 
   const getOrderDetails = async (orderId) => {
     try {
-      const res = await axiosInstance.get(`/order/getorderdetailsbyid.php?id=${orderId}`);
+      const res = await axiosInstance.get(`/order/getorderdetailsbyid.php?id=${orderId}`, {withCredentials: true});
       setOrderDetails(res.data);
     } catch (error) {
       alert(error);
@@ -43,7 +43,7 @@ export default function OrderManagementTab() {
 
   const updateOrder = async () => {
     try {
-      await axiosInstance.put('/order/updateorder.php', editFormData);
+      await axiosInstance.put('/order/updateorder.php', editFormData, {withCredentials: true});
       await getOrders();
     } catch (error) {
       alert(error);
@@ -52,7 +52,7 @@ export default function OrderManagementTab() {
 
   const updateOrderRow = async () => {
     try {
-      await axiosInstance.put('/order/updateorderdetails.php', editRowFormData);
+      await axiosInstance.put('/order/updateorderdetails.php', editRowFormData, {withCredentials: true});
       await getOrderDetails(editRowFormData.order_id);
     } catch (error) {
       alert(error);
@@ -61,7 +61,7 @@ export default function OrderManagementTab() {
 
   const deleteOrder = async (id) => {
     try {
-      await axiosInstance.delete(`/order/deleteorderbyid.php?id=${id}`);
+      await axiosInstance.delete(`/order/deleteorderbyid.php?id=${id}`, {withCredentials: true});
       await getOrders();
     } catch (error) {
       alert(error);
@@ -70,7 +70,7 @@ export default function OrderManagementTab() {
 
   const deleteOrderRow = async (orderId, orderRow) => {
     try {
-      await axiosInstance.delete(`/order/deleteorderrowbyid.php?id=${orderId}&row=${orderRow}`);
+      await axiosInstance.delete(`/order/deleteorderrowbyid.php?id=${orderId}&row=${orderRow}`, {withCredentials: true});
       await getOrderDetails(orderId);
     } catch (error) {
       alert(error);
