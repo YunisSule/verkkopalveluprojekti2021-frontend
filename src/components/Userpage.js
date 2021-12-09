@@ -1,18 +1,43 @@
 import { useState, useEffect } from 'react';
-import { Nav, NavItem, NavLink, TabContent, TabPane, Row, Col, Form, FormGroup, Input, Label, Button, Table, Modal, ModalHeader, ModalBody } from 'reactstrap';
+import {
+  Nav,
+  NavItem,
+  NavLink,
+  TabContent,
+  TabPane,
+  Row,
+  Col,
+  Form,
+  FormGroup,
+  Input,
+  Label,
+  Button,
+  Table,
+  Modal,
+  ModalHeader,
+  ModalBody,
+} from 'reactstrap';
 import axiosInstance from '../axios';
+import { getPaymentMethod, getProductState } from '../util/tableutil';
 
 export default function Userpage() {
   const [activeTab, setActiveTab] = useState('1');
   const [user, setUser] = useState([]);
-  const [orderHistory, setOrderHistory] = useState([]);
-  const [orderInfo, setOrderInfo] = useState([]);
+  const [orders, setOrders] = useState([]);
   const [modal, setModal] = useState(false);
-  const [orderId, setOrderId] = useState('');
+  const [clickedOrder, setClickedOrder] = useState([]);
   const [formdata, setFormdata] = useState([]);
 
-  // Get user info to user variable
+  const getOrderDetails = async (orderId) => {
+    try {
+      const res = await axiosInstance.get(`/order/getorderdetailsbyid.php?id=${orderId}`);
+      setClickedOrder(res.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
+  // Get user info to user variable
   useEffect(() => {
     axiosInstance
       .get('/user/getuserbyid.php?id=1')
@@ -24,26 +49,12 @@ export default function Userpage() {
       });
   }, []);
 
-  // Get order info to orderInfo variable
-
-  useEffect(() => {
-    axiosInstance
-      .get(`/order/getorderinfo.php?id=${orderId}`)
-      .then((response) => {
-        setOrderInfo(response.data);
-      })
-      .catch((error) => {
-        alert(error);
-      });
-  }, [orderId]);
-
   // Get order history to orderHistory variable
-
   useEffect(() => {
     axiosInstance
-      .get('/order/getorders.php?id=1')
+      .get('/order/getordersbyuserid.php?user_id=1')
       .then((response) => {
-        setOrderHistory(response.data);
+        setOrders(response.data);
       })
       .catch((error) => {
         alert(error);
@@ -51,7 +62,6 @@ export default function Userpage() {
   }, []);
 
   // Update user info: firstname, lastname, email, address, city and postal code by ID. posts JSON data
-
   function update() {
     axiosInstance
       .post('/user/updateuserinfo.php?id=1', formdata)
@@ -138,13 +148,25 @@ export default function Userpage() {
                   <Col md={6}>
                     <FormGroup>
                       <Label for="firstname">Etunimi</Label>
-                      <Input id="firstname" name="firstname" value={formdata.firstname} type="text" onChange={handleChange} />
+                      <Input
+                        id="firstname"
+                        name="firstname"
+                        value={formdata.firstname}
+                        type="text"
+                        onChange={handleChange}
+                      />
                     </FormGroup>
                   </Col>
                   <Col md={6}>
                     <FormGroup>
                       <Label for="lastname">Sukunimi</Label>
-                      <Input id="lastname" name="lastname" value={formdata.lastname} type="text" onChange={handleChange} />
+                      <Input
+                        id="lastname"
+                        name="lastname"
+                        value={formdata.lastname}
+                        type="text"
+                        onChange={handleChange}
+                      />
                     </FormGroup>
                   </Col>
                   <Col md={6}>
@@ -191,22 +213,26 @@ export default function Userpage() {
                 <thead>
                   <tr>
                     <th>Tilausnumero</th>
-                    <th>Tilauspäivä</th>
                     <th>Tila</th>
+                    <th>Laskutustapa</th>
+                    <th>Tilauspäivä</th>
                   </tr>
                 </thead>
 
                 <tbody>
-                  {orderHistory.map((item) => (
+                  {orders.map((order) => (
                     <tr
                       onClick={() => {
                         setModal(!modal);
-                        setOrderId(item.order_id);
+                        getOrderDetails(order.order_id);
                       }}
                     >
-                      <td>{item.order_id}</td>
-                      <td>{item.order_date}</td>
-                      <td>{item.state}</td>
+                      {Object.values(order).map((item, index) => {
+                        if (index === 1) return getProductState(item, index);
+                        if (index === 2) return getPaymentMethod(item, index);
+
+                        return <td key={index}>{item}</td>;
+                      })}
                     </tr>
                   ))}
                 </tbody>
@@ -223,28 +249,28 @@ export default function Userpage() {
               setModal(!modal);
             }}
           >
-            Tilausten tiedot
+            Tilauksen tiedot
           </ModalHeader>
           <ModalBody>
             <Table>
               <thead>
                 <tr>
-                  <th>Tuotenumero</th>
                   <th>Tuotenimi</th>
                   <th>Määrä</th>
-                  <th>Hinta</th>
+                  <th>Tuotehinta</th>
+                  <th>Kokonaishinta</th>
                 </tr>
               </thead>
-              {orderInfo.map((item) => (
-                <tbody>
+              <tbody>
+                {clickedOrder.map((order, index) => (
                   <tr>
-                    <td>{item.product_id}</td>
-                    <td>{item.name}</td>
-                    <td>{item.quantity}</td>
-                    <td>{item.price}</td>
+                    <td>{order.name}</td>
+                    <td>{order.quantity}</td>
+                    <td>{order.price}€</td>
+                    <td>{order.total}€</td>
                   </tr>
-                </tbody>
-              ))}
+                ))}
+              </tbody>
             </Table>
           </ModalBody>
         </Modal>

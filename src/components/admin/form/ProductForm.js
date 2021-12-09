@@ -23,7 +23,7 @@ export default function ProductForm({ formData, handleChange }) {
           />
         </FormGroup>
         <FormGroup>
-          <Label for="image_path">Kuvan polku</Label>
+          <Label for="image_path">Tuotekuva</Label>
           <Input
             id="image_path"
             name="image_path"

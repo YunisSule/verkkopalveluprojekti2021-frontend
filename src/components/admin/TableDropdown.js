@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Dropdown, DropdownMenu, DropdownToggle } from 'reactstrap';
 
-export default function TableDropdown({ onEditClick, onDeleteClick }) {
+export default function TableDropdown({ children }) {
   const [openDropdown, setOpenDropdown] = useState(false);
   const dropdownToggle = () => setOpenDropdown(!openDropdown);
 
@@ -19,14 +19,7 @@ export default function TableDropdown({ onEditClick, onDeleteClick }) {
           <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
         </svg>
       </DropdownToggle>
-      <DropdownMenu dark>
-        <div className="product-dropdown-item" onClick={() => onEditClick()}>
-          Muokkaa
-        </div>
-        <div className="product-dropdown-item" onClick={() => onDeleteClick()}>
-          Poista
-        </div>
-      </DropdownMenu>
+      <DropdownMenu dark>{children}</DropdownMenu>
     </Dropdown>
   );
 }
