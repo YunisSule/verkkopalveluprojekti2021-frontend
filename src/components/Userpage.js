@@ -30,44 +30,44 @@ export default function Userpage() {
 
   const getOrderDetails = async (orderId) => {
     try {
-      const res = await axiosInstance.get(`/order/getorderdetailsbyid.php?id=${orderId}`);
+      const res = await axiosInstance.get(`/order/getorderdetailsbyid.php?id=${orderId}`, {withCredentials: true});
       setClickedOrder(res.data);
     } catch (error) {
-      console.error(error);
+      console.error(error.response ? error.response.data.error : error);
     }
   };
 
   // Get user info to user variable
   useEffect(() => {
     axiosInstance
-      .get('/user/getuserbyid.php?id=1')
+      .get('/user/getuserbyid.php?id=1', {withCredentials: true})
       .then((response) => {
         setUser(response.data);
       })
       .catch((error) => {
-        alert(error);
+        alert(error.response ? error.response.data.error : error);
       });
   }, []);
 
   // Get order history to orderHistory variable
   useEffect(() => {
     axiosInstance
-      .get('/order/getordersbyuserid.php?user_id=1')
+      .get('/order/getordersbyuserid.php?user_id=1', {withCredentials: true})
       .then((response) => {
         setOrders(response.data);
       })
       .catch((error) => {
-        alert(error);
+        alert(error.response ? error.response.data.error : error);
       });
   }, []);
 
   // Update user info: firstname, lastname, email, address, city and postal code by ID. posts JSON data
   function update() {
     axiosInstance
-      .post('/user/updateuserinfo.php?id=1', formdata)
+      .post('/user/updateuserinfo.php?id=1', formdata, {withCredentials: true})
       .then((response) => {})
       .catch((error) => {
-        alert(error);
+        alert(error.response ? error.response.data.error : error);
       });
   }
 
