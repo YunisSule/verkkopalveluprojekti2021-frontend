@@ -4,6 +4,7 @@ import axiosInstance from '../axios';
 
 export default function SubmitOrder({ modal, close, cart }) {
   const [formdata, setFormdata] = useState([]);
+  let userID = sessionStorage.getItem('user_id');
 
   function handleChange(e) {
     const name = e.target.name;
@@ -22,7 +23,7 @@ export default function SubmitOrder({ modal, close, cart }) {
     });
 
     axiosInstance
-      .post('/order/postorder.php?user_id=1', json)
+      .post('/order/postorder.php?user_id=' + userID, json)
       .then((response) => {
         alert('Tilaus lähetetty');
       })

@@ -2,7 +2,7 @@ import { Row, Col, Form, FormGroup, Input, Label, Button, Modal, ModalHeader, Mo
 import { useState } from 'react';
 import axiosInstance from '../axios';
 
-export default function Register({ modal, close, openOrder }) {
+export default function Register({ modal, close, openSignIn }) {
   const [formdata, setFormdata] = useState([]);
 
   function closeModal() {
@@ -19,12 +19,12 @@ export default function Register({ modal, close, openOrder }) {
     axiosInstance
       .post('/auth/register.php', formdata)
       .then((response) => {
-        alert('Käyttäjätili rekisteröity ja tilaus lähetetty');
+        alert('Käyttäjätili rekisteröity');
       })
       .catch((error) => {
-        alert('Rekisteröityminen ja tilauksen lähettäminen epäonnistui');
+        alert('Rekisteröityminen epäonnistui');
       });
-    openOrder();
+    openSignIn();
   }
 
   return (
@@ -37,7 +37,6 @@ export default function Register({ modal, close, openOrder }) {
           }}
         >
           Syötä asiakastiedot
-          {/* IF SIGNED IN, DIFFERENT MESSAGE */}
         </ModalHeader>
         <ModalBody>
           <Form className="mt-4 mb-4" onSubmit={submit}>

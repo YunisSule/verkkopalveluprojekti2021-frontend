@@ -1,22 +1,5 @@
 import { useState, useEffect } from 'react';
-import {
-  Nav,
-  NavItem,
-  NavLink,
-  TabContent,
-  TabPane,
-  Row,
-  Col,
-  Form,
-  FormGroup,
-  Input,
-  Label,
-  Button,
-  Table,
-  Modal,
-  ModalHeader,
-  ModalBody,
-} from 'reactstrap';
+import { Nav, NavItem, NavLink, TabContent, TabPane, Row, Col, Form, FormGroup, Input, Label, Button, Table, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import axiosInstance from '../axios';
 import { getPaymentMethod, getProductState } from '../util/tableutil';
 
@@ -28,9 +11,11 @@ export default function Userpage() {
   const [clickedOrder, setClickedOrder] = useState([]);
   const [formdata, setFormdata] = useState([]);
 
+  const userID = sessionStorage.getItem('user_id');
+
   const getOrderDetails = async (orderId) => {
     try {
-      const res = await axiosInstance.get(`/order/getorderdetailsbyid.php?id=${orderId}`, {withCredentials: true});
+      const res = await axiosInstance.get(`/order/getorderdetailsbyid.php?id=${orderId}`, { withCredentials: true });
       setClickedOrder(res.data);
     } catch (error) {
       console.error(error.response ? error.response.data.error : error);
@@ -40,7 +25,7 @@ export default function Userpage() {
   // Get user info to user variable
   useEffect(() => {
     axiosInstance
-      .get('/user/getuserbyid.php?id=1', {withCredentials: true})
+      .get('/user/getuserbyid.php?id=' + userID, { withCredentials: true })
       .then((response) => {
         setUser(response.data);
       })
@@ -52,7 +37,7 @@ export default function Userpage() {
   // Get order history to orderHistory variable
   useEffect(() => {
     axiosInstance
-      .get('/order/getordersbyuserid.php?user_id=1', {withCredentials: true})
+      .get('/order/getordersbyuserid.php?user_id=' + userID, { withCredentials: true })
       .then((response) => {
         setOrders(response.data);
       })
@@ -64,7 +49,7 @@ export default function Userpage() {
   // Update user info: firstname, lastname, email, address, city and postal code by ID. posts JSON data
   function update() {
     axiosInstance
-      .post('/user/updateuserinfo.php?id=1', formdata, {withCredentials: true})
+      .post('/user/updateuserinfo.php?id=' + userID, formdata, { withCredentials: true })
       .then((response) => {})
       .catch((error) => {
         alert(error.response ? error.response.data.error : error);
@@ -148,25 +133,13 @@ export default function Userpage() {
                   <Col md={6}>
                     <FormGroup>
                       <Label for="firstname">Etunimi</Label>
-                      <Input
-                        id="firstname"
-                        name="firstname"
-                        value={formdata.firstname}
-                        type="text"
-                        onChange={handleChange}
-                      />
+                      <Input id="firstname" name="firstname" value={formdata.firstname} type="text" onChange={handleChange} />
                     </FormGroup>
                   </Col>
                   <Col md={6}>
                     <FormGroup>
                       <Label for="lastname">Sukunimi</Label>
-                      <Input
-                        id="lastname"
-                        name="lastname"
-                        value={formdata.lastname}
-                        type="text"
-                        onChange={handleChange}
-                      />
+                      <Input id="lastname" name="lastname" value={formdata.lastname} type="text" onChange={handleChange} />
                     </FormGroup>
                   </Col>
                   <Col md={6}>

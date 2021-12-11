@@ -16,6 +16,10 @@ export default function OrderPage({ cart, updateAmount, removeItem }) {
     setRegisterModal(false);
     setOrderModal(!orderModal);
   }
+  function openSignInModal() {
+    setSignInOrRegiserModal(true);
+    setRegisterModal(false);
+  }
 
   function openRegisterModal() {
     setSignInOrRegiserModal(false);
@@ -45,13 +49,7 @@ export default function OrderPage({ cart, updateAmount, removeItem }) {
               <td className="cart">{item.name}</td>
               <td className="cart">{(item.price * item.amount).toFixed(2)} €</td>
               <td className="cart">
-                <input
-                  style={{ width: '50px' }}
-                  type="number"
-                  step="1"
-                  onChange={(e) => changeAmount(e, item)}
-                  value={item.amount}
-                />
+                <input style={{ width: '50px' }} type="number" step="1" onChange={(e) => changeAmount(e, item)} value={item.amount} />
               </td>
               <td>
                 <Button onClick={() => removeItem(item)}>Delete</Button>
@@ -60,16 +58,19 @@ export default function OrderPage({ cart, updateAmount, removeItem }) {
           );
         })}
       </table>
-      <Button onClick={() => setSignInOrRegiserModal(!signInOrRegiserModal)}>Tilaa</Button>
-      {signInOrRegiserModal ? (
-        <SignInOrRegisterModal
-          modal={signInOrRegiserModal}
-          openReg={openRegisterModal}
-          close={closeModals}
-          openOrder={openOrderModal}
-        />
-      ) : null}
-      {registerModal ? <Register modal={registerModal} close={closeModals} openOrder={openOrderModal} /> : null}
+      <Button
+        onClick={() => {
+          if (!sessionStorage.getItem('user_id')) {
+            setSignInOrRegiserModal(!signInOrRegiserModal);
+          } else {
+            setOrderModal(!orderModal);
+          }
+        }}
+      >
+        Tilaa
+      </Button>
+      {signInOrRegiserModal ? <SignInOrRegisterModal modal={signInOrRegiserModal} openReg={openRegisterModal} close={closeModals} openOrder={openOrderModal} /> : null}
+      {registerModal ? <Register modal={registerModal} close={closeModals} openSignIn={openSignInModal} /> : null}
       {orderModal ? <SubmitOrder modal={orderModal} close={closeModals} cart={cart} /> : null}
     </Container>
   );
