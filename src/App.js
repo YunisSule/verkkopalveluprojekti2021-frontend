@@ -13,6 +13,8 @@ import NavBar from './components/Navbar';
 import Infobanner from './components/Infobanner';
 import Footer from './components/Footer';
 import useToken from './components/useToken';
+import Company from './components/Company';
+import Terms from './components/Terms';
 
 export const IMAGE_PATH = 'http://localhost/verkkopalveluprojekti2021-backend/images/';
 
@@ -71,6 +73,8 @@ function App() {
           />
           <Route path="/omatsivut" component={Userpage} exact />
           <Route path="/hallinta" component={Adminpage} exact />
+          <Route path="/yrityksestä" component={Company} exact />
+          <Route path="/Käyttöehdot" component={Terms} exact />
         </Switch>
       </div>
       <Footer />

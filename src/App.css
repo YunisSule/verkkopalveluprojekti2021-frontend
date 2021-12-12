@@ -195,3 +195,28 @@ body {
 .product-dropdown-item:active {
   background-color: #666666;
 }
+
+/* STYLING FOR COMPANY PAGE */
+.companyPage {
+  margin-bottom: 5em;
+}
+
+.company {
+  text-align: center;
+}
+
+.companyTitle {
+  padding-top: 2em;
+}
+
+.companyImage {
+  padding-top: 2em;
+  display: inline-block;
+  padding-bottom: 4em;
+}
+
+/* STYLING FOR TERMS PAGE */
+.terms {
+  margin-top: 5em;
+  margin-bottom: 5em;
+}
