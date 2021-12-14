@@ -1,6 +1,6 @@
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 
-export default function AddModal({ title, action, afterAction, onHide, children }) {
+export default function AddModal({ title, action, onHide, children }) {
   return (
     <Modal isOpen={true} scrollable>
       <ModalHeader charCode="Y" toggle={() => onHide()}>
@@ -16,7 +16,6 @@ export default function AddModal({ title, action, afterAction, onHide, children 
           onClick={() => {
             onHide();
             action();
-            afterAction();
           }}
         >
           Lisää

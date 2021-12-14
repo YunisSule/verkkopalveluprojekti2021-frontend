@@ -181,18 +181,18 @@ body {
 
 /* STYLING FOR ADMIN PANEL */
 
-.product-dropdown-item {
+.admin-dropdown-item {
   padding: 0.5em 1em;
   user-select: none;
   font-weight: 500;
   color: white;
 }
 
-.product-dropdown-item:hover {
+.admin-dropdown-item:hover {
   background-color: #555555;
 }
 
-.product-dropdown-item:active {
+.admin-dropdown-item:active {
   background-color: #666666;
 }
 

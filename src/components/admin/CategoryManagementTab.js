@@ -4,13 +4,13 @@ import TableDropDown from './TableDropdown';
 import { trimString } from '../../util/tableutil';
 import AddModal from './modal/AddModal';
 import axiosInstance from '../../axios';
-import ProductForm from './form/ProductForm';
+import CategoryForm from './form/CategoryForm';
 import EditModal from './modal/EditModal';
 import AddButton from './AddButton';
 
-export default function ProductManagementTab() {
-  const [products, setProducts] = useState([]);
-  const [clickedProduct, setClickedProduct] = useState({});
+export default function CategoryManagementTab() {
+  const [categories, setCategories] = useState([]);
+  const [clickedCategory, setClickedCategory] = useState({});
 
   const [addFormData, setAddFormData] = useState({});
   const clearAddFormData = () => setAddFormData({});
@@ -23,49 +23,49 @@ export default function ProductManagementTab() {
   const [openEditModal, setOpenEditModal] = useState(false);
   const toggleEditModal = () => setOpenEditModal(!openEditModal);
 
-  const getProducts = async () => {
+  const getCategories = async () => {
     try {
-      const res = await axiosInstance.get('/product/getallproducts.php', { withCredentials: true });
-      setProducts(res.data);
+      const res = await axiosInstance.get('/category/getallcategories.php', { withCredentials: true });
+      setCategories(res.data);
     } catch (error) {
-      alert(error.response.data.error);
       console.log(error.response.data);
     }
   };
 
-  const postProduct = async () => {
+  const postCategory = async () => {
     try {
-      await axiosInstance.post('/product/postproduct.php', addFormData, { withCredentials: true });
+      await axiosInstance.post('/category/postcategory.php', addFormData, { withCredentials: true });
       clearAddFormData();
     } catch (error) {
       console.error(error);
     }
   };
 
-  const updateProduct = async () => {
+  const updateCategory = async () => {
     try {
-      await axiosInstance.post('/product/updateproduct.php', editFormData, { withCredentials: true });
+      await axiosInstance.post('/category/updatecategory.php', editFormData, { withCredentials: true });
+      await getCategories();
     } catch (error) {
       alert(error);
     }
   };
 
-  const deleteProduct = async (id) => {
+  const deleteCategory = async (id) => {
     try {
-      await axiosInstance.delete(`/product/deleteproductbyid.php?id=${id}`, { withCredentials: true });
-      await getProducts();
+      await axiosInstance.delete(`/category/deletecategorybyid.php?id=${id}`, { withCredentials: true });
+      await getCategories();
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
-    getProducts();
+    getCategories();
   }, [openEditModal, openAddModal]);
 
   useEffect(() => {
-    setEditFormData(clickedProduct);
-  }, [clickedProduct]);
+    setEditFormData(clickedCategory);
+  }, [clickedCategory]);
 
   const handleAddFormChange = (e) => {
     setAddFormData({ ...addFormData, [e.target.name]: e.target.value });
@@ -78,47 +78,36 @@ export default function ProductManagementTab() {
   return (
     <Container>
       <div className="d-flex justify-content-between align-items-center my-3">
-        <h2 className="d-inline">Tuotteiden hallinta</h2>
+        <h2 className="d-inline">Tuoteryhmien hallinta</h2>
         <AddButton clickAction={toggleAddModal} />
       </div>
       <Table hover responsive={'lg'} className="table-sm">
         <thead>
           <tr>
             <th></th>
-            <th>Tuote ID</th>
-            <th>Tuotenimi</th>
-            <th>Brändi</th>
-            <th>Kuvaus</th>
-            <th>Tuotekuva</th>
-            <th>Hinta</th>
-            <th>Kategoria ID</th>
-            <th>Väri</th>
-            <th>Varastossa</th>
-            <th>Nopeus</th>
-            <th>Liito</th>
-            <th>Vakaus</th>
-            <th>Feidi</th>
+            <th>Tuoteryhmä ID</th>
+            <th>Tuoteryhmän nimi</th>
           </tr>
         </thead>
         <tbody>
-          {products.map((product) => {
+          {categories.map((category) => {
             return (
-              <tr key={product.product_id} item={product}>
+              <tr key={category.category_id} item={category}>
                 <TableDropDown>
                   <div
                     className="admin-dropdown-item"
                     onClick={() => {
-                      setClickedProduct(product);
+                      setClickedCategory(category);
                       toggleEditModal();
                     }}
                   >
                     Muokkaa
                   </div>
-                  <div className="admin-dropdown-item" onClick={() => deleteProduct(product.product_id)}>
+                  <div className="admin-dropdown-item" onClick={() => deleteCategory(category.category_id)}>
                     Poista
                   </div>
                 </TableDropDown>
-                {Object.values(product).map((value, index) => {
+                {Object.values(category).map((value, index) => {
                   return <td key={index}>{value !== null ? trimString(value) : '-'}</td>;
                 })}
               </tr>
@@ -128,16 +117,16 @@ export default function ProductManagementTab() {
       </Table>
 
       {openEditModal ? (
-        <EditModal title="Muokkaa tuotetta" action={updateProduct} onHide={toggleEditModal}>
-          <ProductForm formData={editFormData} handleChange={handleUpdateFormChange} />
+        <EditModal title="Muokkaa tuoteryhmää" action={updateCategory} onHide={toggleEditModal}>
+          <CategoryForm formData={editFormData} handleChange={handleUpdateFormChange} />
         </EditModal>
       ) : (
         <></>
       )}
 
       {openAddModal ? (
-        <AddModal title="Lisää tuote" action={postProduct} onHide={toggleAddModal}>
-          <ProductForm formData={addFormData} handleChange={handleAddFormChange} />
+        <AddModal title="Lisää tuoteryhmä" action={postCategory} onHide={toggleAddModal}>
+          <CategoryForm formData={addFormData} handleChange={handleAddFormChange} />
         </AddModal>
       ) : (
         <></>
