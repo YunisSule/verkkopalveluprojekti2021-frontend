@@ -22,7 +22,7 @@ export default function SearchResults() {
   }, [query]);
 
   return (
-    <div className="col-8 offset-2">
+    <div className="products">
       <h1>Hakutulokset</h1>
       <hr />
       {products.map((item) => (
