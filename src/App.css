@@ -256,6 +256,7 @@ body {
     align-items: flex-start !important;
     flex-direction: column;
   }
+  
   .navbar {
     min-height: 100px;
     align-items: flex-start !important;
@@ -264,14 +265,11 @@ body {
   .navbar-collapse {
     max-width: min-content;
   }
+
   #navItems {
     position: absolute;
     right: 15px;
     top: 0;
-  }
-
-  .products {
-    margin: 0 1em 1em;
   }
 }
 

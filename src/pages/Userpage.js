@@ -49,7 +49,7 @@ export default function Userpage() {
       .catch((error) => {
         alert(error.response ? error.response.data.error : error);
       });
-  }, []);
+  }, [userID]);
 
   // Get order history to orderHistory variable
   useEffect(() => {

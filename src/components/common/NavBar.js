@@ -13,16 +13,37 @@ import {
   Button,
   InputGroup,
 } from 'reactstrap';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Shoppingcart from '../Shoppingcart';
 import Login from '../auth/Login';
+import axiosInstance from '../../axios';
 
-export default function NavBar({ cart }) {
+export default function NavBar({ cart, logged }) {
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const loginModalShow = () => setOpenLoginModal(true);
   const loginModalHide = () => setOpenLoginModal(false);
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
+  const [loggedIn, setLoggedIn] = useState(logged);
+
+  useEffect(() => {
+    setLoggedIn(logged);
+  }, [logged]);
+
+  function logoutUser() {
+    axiosInstance
+      .get('/auth/logout.php', {
+        withCredentials: true,
+      })
+      .then((response) => {
+        console.log(response.data);
+        setLoggedIn(false);
+        sessionStorage.removeItem('user_id');
+      })
+      .catch((error) => {
+        alert(error.response ? error.response.data.error : error);
+      });
+  }
 
   return (
     <div>
@@ -67,7 +88,7 @@ export default function NavBar({ cart }) {
                 <InputGroup>
                   <Input value={query} onChange={(e) => setQuery(e.target.value)} />
                   <Link to={{ pathname: '/hakutulokset', state: { query: query } }}>
-                    <Button>Hae</Button>
+                    <Button>hae</Button>
                   </Link>
                 </InputGroup>
               </form>
@@ -77,21 +98,23 @@ export default function NavBar({ cart }) {
             <NavLink>
               <Shoppingcart cart={cart} />
             </NavLink>
-            <NavLink>
-              <Link to="/omatsivut">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  fill="currentColor"
-                  className="bi bi-person"
-                  viewBox="0 0 16 16"
-                  color="white"
-                >
-                  <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
-                </svg>
-              </Link>
-            </NavLink>
+            {loggedIn ? (
+              <NavLink>
+                <Link to="/omatsivut">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                    className="bi bi-person"
+                    viewBox="0 0 16 16"
+                    color="white"
+                  >
+                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
+                  </svg>
+                </Link>
+              </NavLink>
+            ) : null}
             <NavLink>
               <Link to="/hallinta">
                 <svg
@@ -108,29 +131,53 @@ export default function NavBar({ cart }) {
                 </svg>
               </Link>
             </NavLink>
-            <NavItem>
-              <Button id="login-modal-toggle" color="none" onClick={() => loginModalShow()}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  fill="currentColor"
-                  color="white"
-                  className="bi bi-box-arrow-in-right"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"
-                  />
-                  <path
-                    fillRule="evenodd"
-                    d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"
-                  />
-                </svg>
-              </Button>
-              {openLoginModal ? <Login onHide={loginModalHide} /> : null}
-            </NavItem>
+            {loggedIn ? (
+              <NavItem>
+                <Button id="login-modal-toggle" color="none" onClick={() => logoutUser()}>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="white"
+                    class="bi bi-box-arrow-in-left"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10 3.5a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 1 1 0v2A1.5 1.5 0 0 1 9.5 14h-8A1.5 1.5 0 0 1 0 12.5v-9A1.5 1.5 0 0 1 1.5 2h8A1.5 1.5 0 0 1 11 3.5v2a.5.5 0 0 1-1 0v-2z"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      d="M4.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H14.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"
+                    />
+                  </svg>
+                </Button>
+              </NavItem>
+            ) : (
+              <NavItem>
+                <Button id="login-modal-toggle" color="none" onClick={() => loginModalShow()}>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                    color="white"
+                    className="bi bi-box-arrow-in-right"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"
+                    />
+                    <path
+                      fillRule="evenodd"
+                      d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"
+                    />
+                  </svg>
+                </Button>
+                {openLoginModal ? <Login onHide={loginModalHide} /> : null}
+              </NavItem>
+            )}
           </div>
         </div>
       </Navbar>

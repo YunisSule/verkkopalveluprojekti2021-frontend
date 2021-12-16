@@ -9,7 +9,7 @@ export default function Login({ onHide }) {
     passwd: '',
   };
 
-  const loginUser = async () => {
+  const loginUser = () => {
     axiosInstance
       .post('/auth/login.php', '', {
         headers: {
@@ -18,13 +18,11 @@ export default function Login({ onHide }) {
         withCredentials: true,
       })
       .then((response) => {
-        const tokenString = ('token', JSON.stringify(response.data));
-        const Token = JSON.parse(tokenString);
-        sessionStorage.setItem('token', Token.token);
-        sessionStorage.setItem('user_id', Token.user_id);
-        alert(tokenString);
+        sessionStorage.setItem('user_id', response.data.user_id);
       })
-      .catch((error) => alert(error));
+      .catch((error) => {
+        alert(error.response ? error.response.data.error : error);
+      });
   };
 
   const closeModal = () => {
@@ -71,7 +69,7 @@ export default function Login({ onHide }) {
               Kirjaudu
             </Button>
           </ModalFooter>
-          <input type="hidden" name="token" value="" />
+          {/* <input type="hidden" name="token" value="" /> */}
         </Form>
       </ModalBody>
     </Modal>

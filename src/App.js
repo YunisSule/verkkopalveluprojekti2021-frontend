@@ -12,9 +12,26 @@ import Footer from './components/common/Footer';
 import Company from './pages/about/Company';
 import Terms from './pages/about/Terms';
 import ProductList from './pages/product/ProductList';
+import axiosInstance from './axios';
 
 function App() {
   const [cart, setCart] = useState([]);
+  const [loggedIn, setloggedIn] = useState(false);
+
+  useEffect(() => {
+    axiosInstance
+      .get('/auth/logincheck.php', { withCredentials: true })
+      .then((response) => {
+        if (response.data.loggedin === 'true') {
+          setloggedIn(true);
+        } else {
+          setloggedIn(false);
+        }
+      })
+      .catch((error) => {
+        alert(error.response ? error.response.data.error : error);
+      });
+  }, []);
 
   useEffect(() => {
     if ('cart' in localStorage) {
@@ -55,7 +72,7 @@ function App() {
 
   return (
     <div className="d-flex flex-column min-vh-100">
-      <NavBar cart={cart} />
+      <NavBar cart={cart} logged={loggedIn} />
       <div className="flex-grow-1 mb-5">
         <Switch>
           <Route exact path="/" component={Frontpage} />

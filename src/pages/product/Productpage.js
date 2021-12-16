@@ -42,7 +42,7 @@ export default function Productpage({ addToCart }) {
               <figure className="p-md-0" id="product-image">
                 <picture>
                   <source />
-                  <img src={IMAGE_PATH + item.image_path} alt="Product" className="img-fluid p-1" />
+                  <img src={IMAGE_PATH + item.image_path} alt="Product" className="img-fluid p-4" />
                 </picture>
               </figure>
             </div>
