@@ -12,21 +12,37 @@ import Userpage from './components/Userpage';
 import NavBar from './components/Navbar';
 import Infobanner from './components/Infobanner';
 import Footer from './components/Footer';
-import useToken from './components/useToken';
 import Company from './components/Company';
 import Terms from './components/Terms';
+import axiosInstance from './axios';
 
 export const IMAGE_PATH = 'http://localhost/verkkopalveluprojekti2021-backend/images/';
 
 function App() {
   const [cart, setCart] = useState([]);
-  // const { token, setToken } = useToken()
+  const [loggedIn, setloggedIn] = useState(false)
+
+  useEffect(() => {
+    axiosInstance
+    .get('/auth/logincheck.php', {withCredentials: true})
+    .then((response) => {
+      if (response.data.loggedin == "true") {
+        setloggedIn(true)
+      } else {
+        setloggedIn(false)
+      }
+    })
+    .catch((error) => {
+      alert(error.response ? error.response.data.error : error);
+    });
+  }, []);
 
   useEffect(() => {
     if ('cart' in localStorage) {
       setCart(JSON.parse(localStorage.getItem('cart')));
     }
-  }, []);
+  }, [])
+
 
   function addToCart(item) {      //Shopping cart add function
      if (cart.some((i) => i.product_id === item.product_id)) {    
@@ -59,7 +75,7 @@ function App() {
   return (
     <div className="d-flex flex-column min-vh-100">
       <Infobanner />
-      <NavBar cart={cart} />
+      <NavBar cart={cart} logged={loggedIn}/>
       <div className="flex-grow-1 mb-5">
         <Switch>
           <Route path="/" component={Frontpage} exact />
