@@ -17,6 +17,7 @@ import axiosInstance from './axios';
 function App() {
   const [cart, setCart] = useState([]);
   const [loggedIn, setloggedIn] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     axiosInstance
@@ -26,6 +27,12 @@ function App() {
           setloggedIn(true);
         } else {
           setloggedIn(false);
+        }
+        if (response.data.isadmin === 'true') {
+          console.log(response.data.isadmin)
+          setIsAdmin(true)
+        } else {
+          setIsAdmin(false)
         }
       })
       .catch((error) => {
@@ -72,7 +79,7 @@ function App() {
 
   return (
     <div className="d-flex flex-column min-vh-100">
-      <NavBar cart={cart} logged={loggedIn} />
+      <NavBar cart={cart} logged={loggedIn} admin={isAdmin} />
       <div className="flex-grow-1 mb-5">
         <Switch>
           <Route exact path="/" component={Frontpage} />

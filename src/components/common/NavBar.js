@@ -18,17 +18,19 @@ import Shoppingcart from '../Shoppingcart';
 import Login from '../auth/Login';
 import axiosInstance from '../../axios';
 
-export default function NavBar({ cart, logged }) {
+export default function NavBar({ cart, logged, admin }) {
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const loginModalShow = () => setOpenLoginModal(true);
   const loginModalHide = () => setOpenLoginModal(false);
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [loggedIn, setLoggedIn] = useState(logged);
+  const [isAdmin, setIsAdmin] = useState(admin)
 
   useEffect(() => {
+    setIsAdmin(admin)
     setLoggedIn(logged);
-  }, [logged]);
+  }, [admin]);
 
   function logoutUser() {
     axiosInstance
@@ -37,6 +39,7 @@ export default function NavBar({ cart, logged }) {
       })
       .then((response) => {
         console.log(response.data);
+        setIsAdmin(false)
         setLoggedIn(false);
         sessionStorage.removeItem('user_id');
       })
@@ -115,6 +118,7 @@ export default function NavBar({ cart, logged }) {
                 </Link>
               </NavLink>
             ) : null}
+            {isAdmin ? (
             <NavLink>
               <Link to="/hallinta">
                 <svg
@@ -131,6 +135,7 @@ export default function NavBar({ cart, logged }) {
                 </svg>
               </Link>
             </NavLink>
+            ) : null}
             {loggedIn ? (
               <NavItem>
                 <Button id="login-modal-toggle" color="none" onClick={() => logoutUser()}>
