@@ -13,29 +13,36 @@
 }
 
 /* STYLING FOR NAVBAR */
+.navbar-collapse {
+  max-width: max-content;
+}
 
 #navItems {
   display: flex;
+  flex-direction: column;
+  margin-right: 2vw;
+}
+
+.nav-item {
+  list-style: none;
+}
+
+#buttons {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
 }
 
 .searchBox {
-  margin-left: 1em;
-  display: inline-flex !important;
-  align-self: flex-end !important;
+  width: 206px;
 }
 
-@media screen and (min-width: 768px) {
-  .navbar-collapse {
-    max-width: fit-content;
-  }
-}
-
-#login-modal-toggle:focus {
-  box-shadow: none !important;
+.searchBox button {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
 }
 
 /*STYLING FOR HOMEPAGE*/
-
 #banner {
   background-image: url(./images/banner.jpg);
   background-size: cover;
@@ -138,7 +145,8 @@ img {
   font-size: 20px;
 }
 
-#add-to-cart-button, #signin-button{
+#add-to-cart-button,
+#signin-button {
   background-color: #89023d;
   border-style: none;
 }
@@ -153,10 +161,24 @@ body {
 
 /* STYLING FOR ALL SHOWBAGS/SHOWDISCS/SEARCHRESULTS */
 
+.products {
+  text-align: center;
+  margin: 0 2em 2em;
+}
+
+.list-group-item {
+  box-shadow: 2px 2px 5px 0px #ccc;
+  padding: 0 !important;
+}
+
+.list-group-item h5 {
+  margin-top: 10px;
+}
+
 .items {
   display: inline-block;
   padding: 10px;
-  width: 250px;
+  width: 270px;
 }
 .items p {
   margin: 20px;
@@ -169,7 +191,7 @@ body {
 
 .cart {
   width: 150px;
-  padding:10px;
+  padding: 10px;
   padding-bottom: 30px;
 }
 
@@ -181,18 +203,18 @@ body {
 
 /* STYLING FOR ADMIN PANEL */
 
-.product-dropdown-item {
+.admin-dropdown-item {
   padding: 0.5em 1em;
   user-select: none;
   font-weight: 500;
   color: white;
 }
 
-.product-dropdown-item:hover {
+.admin-dropdown-item:hover {
   background-color: #555555;
 }
 
-.product-dropdown-item:active {
+.admin-dropdown-item:active {
   background-color: #666666;
 }
 
@@ -219,4 +241,37 @@ body {
 .terms {
   margin-top: 5em;
   margin-bottom: 5em;
+}
+
+/* STYLING FOR MOBILE */
+
+@media screen and (max-width: 768px) {
+  .navbar > .container,
+  .navbar > .container-fluid,
+  .navbar > .container-sm,
+  .navbar > .container-md {
+    align-items: flex-start !important;
+    flex-direction: column;
+  }
+  .navbar {
+    min-height: 100px;
+    align-items: flex-start !important;
+  }
+
+  .navbar-collapse {
+    max-width: min-content;
+  }
+  #navItems {
+    position: absolute;
+    right: 15px;
+    top: 0;
+  }
+
+  .products {
+    margin: 0 1em 1em;
+  }
+}
+
+#login-modal-toggle:focus {
+  box-shadow: none !important;
 }

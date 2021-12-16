@@ -18,7 +18,7 @@ export default function UserManagementTab() {
 
   const getUsers = async () => {
     try {
-      const res = await axiosInstance.get('/user/getallusers.php', {withCredentials: true});
+      const res = await axiosInstance.get('/user/getallusers.php', { withCredentials: true });
       setUsers(res.data);
     } catch (error) {
       alert(error);
@@ -27,7 +27,7 @@ export default function UserManagementTab() {
 
   const updateUser = async () => {
     try {
-      await axiosInstance.put('/user/updateuser.php', editFormData, {withCredentials: true});
+      await axiosInstance.put('/user/updateuser.php', editFormData, { withCredentials: true });
       await getUsers();
     } catch (error) {
       alert(error);
@@ -36,7 +36,7 @@ export default function UserManagementTab() {
 
   const deleteUser = async (id) => {
     try {
-      await axiosInstance.delete(`/user/deleteuserbyid.php?id=${id}`, {withCredentials: true});
+      await axiosInstance.delete(`/user/deleteuserbyid.php?id=${id}`, { withCredentials: true });
       await getUsers();
     } catch (error) {
       alert(error);
@@ -81,7 +81,7 @@ export default function UserManagementTab() {
               <tr key={user.user_id} item={user}>
                 <TableDropdown>
                   <div
-                    className="product-dropdown-item"
+                    className="admin-dropdown-item"
                     onClick={() => {
                       setClickedUser(user);
                       toggleEditModal();
@@ -89,7 +89,7 @@ export default function UserManagementTab() {
                   >
                     Muokkaa
                   </div>
-                  <div className="product-dropdown-item" onClick={() => deleteUser(user.user_id)}>
+                  <div className="admin-dropdown-item" onClick={() => deleteUser(user.user_id)}>
                     Poista
                   </div>
                 </TableDropdown>

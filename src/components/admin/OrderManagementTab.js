@@ -25,7 +25,7 @@ export default function OrderManagementTab() {
 
   const getOrders = async () => {
     try {
-      const res = await axiosInstance.get('/order/getallorders.php', {withCredentials: true});
+      const res = await axiosInstance.get('/order/getallorders.php', { withCredentials: true });
       setOrders(res.data);
     } catch (error) {
       alert(error);
@@ -34,7 +34,7 @@ export default function OrderManagementTab() {
 
   const getOrderDetails = async (orderId) => {
     try {
-      const res = await axiosInstance.get(`/order/getorderdetailsbyid.php?id=${orderId}`, {withCredentials: true});
+      const res = await axiosInstance.get(`/order/getorderdetailsbyid.php?id=${orderId}`, { withCredentials: true });
       setOrderDetails(res.data);
     } catch (error) {
       alert(error);
@@ -43,7 +43,7 @@ export default function OrderManagementTab() {
 
   const updateOrder = async () => {
     try {
-      await axiosInstance.put('/order/updateorder.php', editFormData, {withCredentials: true});
+      await axiosInstance.put('/order/updateorder.php', editFormData, { withCredentials: true });
       await getOrders();
     } catch (error) {
       alert(error);
@@ -52,7 +52,7 @@ export default function OrderManagementTab() {
 
   const updateOrderRow = async () => {
     try {
-      await axiosInstance.put('/order/updateorderdetails.php', editRowFormData, {withCredentials: true});
+      await axiosInstance.put('/order/updateorderdetails.php', editRowFormData, { withCredentials: true });
       await getOrderDetails(editRowFormData.order_id);
     } catch (error) {
       alert(error);
@@ -61,7 +61,7 @@ export default function OrderManagementTab() {
 
   const deleteOrder = async (id) => {
     try {
-      await axiosInstance.delete(`/order/deleteorderbyid.php?id=${id}`, {withCredentials: true});
+      await axiosInstance.delete(`/order/deleteorderbyid.php?id=${id}`, { withCredentials: true });
       await getOrders();
     } catch (error) {
       alert(error);
@@ -70,7 +70,9 @@ export default function OrderManagementTab() {
 
   const deleteOrderRow = async (orderId, orderRow) => {
     try {
-      await axiosInstance.delete(`/order/deleteorderrowbyid.php?id=${orderId}&row=${orderRow}`, {withCredentials: true});
+      await axiosInstance.delete(`/order/deleteorderrowbyid.php?id=${orderId}&row=${orderRow}`, {
+        withCredentials: true,
+      });
       await getOrderDetails(orderId);
     } catch (error) {
       alert(error);
@@ -119,7 +121,7 @@ export default function OrderManagementTab() {
               <tr key={order.order_id}>
                 <TableDropdown>
                   <div
-                    className="product-dropdown-item"
+                    className="admin-dropdown-item"
                     onClick={() => {
                       getOrderDetails(order.order_id);
                       toggleDetailModal();
@@ -128,7 +130,7 @@ export default function OrderManagementTab() {
                     Näytä tiedot
                   </div>
                   <div
-                    className="product-dropdown-item"
+                    className="admin-dropdown-item"
                     onClick={() => {
                       setClickedOrder(order);
                       toggleEditModal();
@@ -136,7 +138,7 @@ export default function OrderManagementTab() {
                   >
                     Muokkaa
                   </div>
-                  <div className="product-dropdown-item" onClick={() => deleteOrder(order.order_id)}>
+                  <div className="admin-dropdown-item" onClick={() => deleteOrder(order.order_id)}>
                     Poista
                   </div>
                 </TableDropdown>
@@ -186,7 +188,7 @@ export default function OrderManagementTab() {
               <tr key={index}>
                 <TableDropdown>
                   <div
-                    className="product-dropdown-item"
+                    className="admin-dropdown-item"
                     onClick={() => {
                       setClickedOrderRow(row);
                       toggleEditRowModal();
@@ -195,7 +197,7 @@ export default function OrderManagementTab() {
                     Muokkaa
                   </div>
                   <div
-                    className="product-dropdown-item"
+                    className="admin-dropdown-item"
                     onClick={() => {
                       deleteOrderRow(row.order_id, row.order_row);
                     }}

@@ -4,6 +4,7 @@ import { Container, Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstra
 import ProductManagementPage from './ProductManagementTab';
 import UserManagementTab from './UserManagementTab';
 import OrderManagementTab from './OrderManagementTab';
+import CategoryManagementTab from './CategoryManagementTab';
 
 export default function Adminpage() {
   const [activeTab, setactiveTab] = useState('1');
@@ -22,6 +23,9 @@ export default function Adminpage() {
           <NavItem onClick={() => setactiveTab('3')}>
             <NavLink className={activeTab === '3' ? 'active' : ''}>Käyttäjien hallinta</NavLink>
           </NavItem>
+          <NavItem onClick={() => setactiveTab('4')}>
+            <NavLink className={activeTab === '4' ? 'active' : ''}>Tuoteryhmien hallinta</NavLink>
+          </NavItem>
         </Nav>
       </section>
       <section>
@@ -35,6 +39,9 @@ export default function Adminpage() {
             </TabPane>
             <TabPane tabId="3">
               <UserManagementTab />
+            </TabPane>
+            <TabPane tabId="4">
+              <CategoryManagementTab />
             </TabPane>
           </Suspense>
         </TabContent>

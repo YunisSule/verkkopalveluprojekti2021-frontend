@@ -22,7 +22,7 @@ export default function ShowBags() {
   }, []);
 
   return (
-    <div className="col-8 offset-2">
+    <div className="products">
       <h1>Kassit</h1>
       <hr />
       {products.map((item) => (
