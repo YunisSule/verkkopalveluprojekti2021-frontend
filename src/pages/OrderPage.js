@@ -1,10 +1,10 @@
 import React from 'react';
 import { useState } from 'react';
 import { Button, Container } from 'reactstrap';
-import SignInOrRegisterModal from './SignInOrRegisterModal';
-import Register from './Register';
-import SubmitOrder from './submitOrder';
-import { IMAGE_PATH } from '../App';
+import SignInOrRegisterModal from '../components/auth/SignInOrRegisterModal';
+import Register from '../components/auth/Register';
+import SubmitOrder from '../components/submitOrder';
+import { IMAGE_PATH } from '../config';
 
 export default function OrderPage({ cart, updateAmount, removeItem }) {
   const [signInOrRegiserModal, setSignInOrRegiserModal] = useState(false);
@@ -49,7 +49,13 @@ export default function OrderPage({ cart, updateAmount, removeItem }) {
               <td className="cart">{item.name}</td>
               <td className="cart">{(item.price * item.amount).toFixed(2)} €</td>
               <td className="cart">
-                <input style={{ width: '50px' }} type="number" step="1" onChange={(e) => changeAmount(e, item)} value={item.amount} />
+                <input
+                  style={{ width: '50px' }}
+                  type="number"
+                  step="1"
+                  onChange={(e) => changeAmount(e, item)}
+                  value={item.amount}
+                />
               </td>
               <td>
                 <Button onClick={() => removeItem(item)}>Delete</Button>
@@ -69,7 +75,14 @@ export default function OrderPage({ cart, updateAmount, removeItem }) {
       >
         Tilaa
       </Button>
-      {signInOrRegiserModal ? <SignInOrRegisterModal modal={signInOrRegiserModal} openReg={openRegisterModal} close={closeModals} openOrder={openOrderModal} /> : null}
+      {signInOrRegiserModal ? (
+        <SignInOrRegisterModal
+          modal={signInOrRegiserModal}
+          openReg={openRegisterModal}
+          close={closeModals}
+          openOrder={openOrderModal}
+        />
+      ) : null}
       {registerModal ? <Register modal={registerModal} close={closeModals} openSignIn={openSignInModal} /> : null}
       {orderModal ? <SubmitOrder modal={orderModal} close={closeModals} cart={cart} /> : null}
     </Container>

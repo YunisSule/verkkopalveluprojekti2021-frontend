@@ -3,9 +3,9 @@ import { useEffect } from 'react/cjs/react.development';
 import { Container, Table } from 'reactstrap';
 import axiosInstance from '../../axios';
 import { trimString } from '../../util/tableutil';
-import EditModal from './modal/EditModal';
-import TableDropdown from './TableDropdown';
-import UserForm from './form/UserForm';
+import EditModal from '../../components/admin/modal/EditModal';
+import TableDropdown from '../../components/admin/TableDropdown';
+import UserForm from '../../components/admin/form/UserForm';
 
 export default function UserManagementTab() {
   const [users, setUsers] = useState([]);

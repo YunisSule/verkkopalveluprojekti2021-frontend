@@ -63,12 +63,6 @@
   font-weight: 500;
 }
 
-.productOfTheMonth {
-  display: inline-block;
-  margin-bottom: 10vh;
-  margin-top: 5vh;
-}
-
 /* STYLING FOR FOOTER */
 
 #footer {
@@ -161,30 +155,40 @@ body {
 
 /* STYLING FOR ALL SHOWBAGS/SHOWDISCS/SEARCHRESULTS */
 
-.products {
-  text-align: center;
-  margin: 0 2em 2em;
+.items {
+  display: flex;
+  justify-content: center;
+  flex-flow: row wrap;
+  margin-bottom: 2em;
 }
 
 .list-group-item {
-  box-shadow: 2px 2px 5px 0px #ccc;
   padding: 0 !important;
 }
 
-.list-group-item h5 {
-  margin-top: 10px;
+.item {
+  width: 15em;
+  margin: 1em;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 2px 2px 5px 0px #ccc;
 }
 
-.items {
-  display: inline-block;
-  padding: 10px;
-  width: 270px;
+.item-heading {
+  margin: 1em;
+  font-size: 1.1em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.items p {
-  margin: 20px;
+
+.item-price {
+  margin: 1em;
+  font-weight: 500;
 }
-.image_150px {
-  height: 150px;
+
+.item-image {
+  width: 150px;
 }
 
 /* STYLING FOR SHOPPING CART */
@@ -199,7 +203,6 @@ body {
   height: 50px;
   padding-right: 30px;
 }
-/* STYLING FOR USERPAGE */
 
 /* STYLING FOR ADMIN PANEL */
 

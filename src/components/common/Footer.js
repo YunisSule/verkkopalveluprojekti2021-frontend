@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
-import Logo from '../images/Fribashoplogo.svg';
+import Logo from '../../images/Fribashoplogo.svg';
 
 export default function Footer() {
   return (
     <>
-      <footer id="footer" className="container p-4 text-white ">
+      <footer id="footer" className="container p-4 text-white">
         <div id="footerContent" className="row">
           <table className="col-lg-4 col-md-4 mb-4 mb-md-0">
             <tbody>
@@ -47,7 +47,7 @@ export default function Footer() {
           <img src={Logo} alt="Logo" className="col-lg-4 d-none d-lg-block " />
         </div>
       </footer>
-      <div id="footerBottom" className="text-white bg-black">
+      <div id="footerBottom" className="text-white p-2 bg-black">
         <p>&copy; Ryhmä 11</p>
       </div>
     </>

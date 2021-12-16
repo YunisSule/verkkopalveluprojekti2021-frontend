@@ -1,5 +1,22 @@
 import { useState, useEffect } from 'react';
-import { Nav, NavItem, NavLink, TabContent, TabPane, Row, Col, Form, FormGroup, Input, Label, Button, Table, Modal, ModalHeader, ModalBody } from 'reactstrap';
+import {
+  Nav,
+  NavItem,
+  NavLink,
+  TabContent,
+  TabPane,
+  Row,
+  Col,
+  Form,
+  FormGroup,
+  Input,
+  Label,
+  Button,
+  Table,
+  Modal,
+  ModalHeader,
+  ModalBody,
+} from 'reactstrap';
 import axiosInstance from '../axios';
 import { getPaymentMethod, getProductState } from '../util/tableutil';
 
@@ -44,7 +61,7 @@ export default function Userpage() {
       .catch((error) => {
         alert(error.response ? error.response.data.error : error);
       });
-  }, []);
+  }, [userID]);
 
   // Update user info: firstname, lastname, email, address, city and postal code by ID. posts JSON data
   function update() {
@@ -133,25 +150,31 @@ export default function Userpage() {
                   <Col md={6}>
                     <FormGroup>
                       <Label for="firstname">Etunimi</Label>
-                      <Input id="firstname" name="firstname" value={formdata.firstname} type="text" onChange={handleChange} />
+                      <Input
+                        id="firstname"
+                        name="firstname"
+                        value={formdata.firstname}
+                        type="text"
+                        onChange={handleChange}
+                      />
                     </FormGroup>
                   </Col>
                   <Col md={6}>
                     <FormGroup>
                       <Label for="lastname">Sukunimi</Label>
-                      <Input id="lastname" name="lastname" value={formdata.lastname} type="text" onChange={handleChange} />
+                      <Input
+                        id="lastname"
+                        name="lastname"
+                        value={formdata.lastname}
+                        type="text"
+                        onChange={handleChange}
+                      />
                     </FormGroup>
                   </Col>
                   <Col md={6}>
                     <FormGroup>
                       <Label for="email">Sähköposti</Label>
                       <Input id="email" name="email" value={formdata.email} type="email" onChange={handleChange} />
-                    </FormGroup>
-                  </Col>
-                  <Col md={6}>
-                    <FormGroup>
-                      <Label for="password">Salasana</Label>
-                      <Input id="password" name="password" placeholder="*********" type="password" />
                     </FormGroup>
                   </Col>
                   <Col md={6}>

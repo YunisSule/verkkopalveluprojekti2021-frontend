@@ -1,26 +1,20 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 import { Switch, Route } from 'react-router';
-import Adminpage from './components/admin/Adminpage';
-import Frontpage from './components/Frontpage';
-import Productpage from './components/Productpage';
-import SearchResults from './components/SearchResults';
-import ShowBags from './components/ShowBags';
-import ShowDiscs from './components/ShowDisc';
-import OrderPage from './components/OrderPage';
-import Userpage from './components/Userpage';
-import NavBar from './components/Navbar';
-import Infobanner from './components/Infobanner';
-import Footer from './components/Footer';
-import useToken from './components/useToken';
-import Company from './components/Company';
-import Terms from './components/Terms';
-
-export const IMAGE_PATH = 'http://localhost/verkkopalveluprojekti2021-backend/images/';
+import Adminpage from './pages/admin/Adminpage';
+import Frontpage from './pages/Frontpage';
+import Productpage from './pages/product/Productpage';
+import SearchResults from './pages/SearchResults';
+import OrderPage from './pages/OrderPage';
+import Userpage from './pages/Userpage';
+import NavBar from './components/common/NavBar';
+import Footer from './components/common/Footer';
+import Company from './pages/about/Company';
+import Terms from './pages/about/Terms';
+import ProductList from './pages/product/ProductList';
 
 function App() {
   const [cart, setCart] = useState([]);
-  // const { token, setToken } = useToken()
 
   useEffect(() => {
     if ('cart' in localStorage) {
@@ -28,20 +22,22 @@ function App() {
     }
   }, []);
 
-  function addToCart(item) {      //Shopping cart add function
-     if (cart.some((i) => i.product_id === item.product_id)) {    
-      const existingItem = cart.filter((i) => i.product_id === item.product_id)
-      updateAmount(parseInt(existingItem[0].amount) + 1, item)
+  function addToCart(item) {
+    //Shopping cart add function
+    if (cart.some((i) => i.product_id === item.product_id)) {
+      const existingItem = cart.filter((i) => i.product_id === item.product_id);
+      updateAmount(parseInt(existingItem[0].amount) + 1, item);
       console.log(item);
-    } else {   
-    item['amount'] = 1;
-    const newCart = [...cart, item];
-    setCart(newCart);
-    localStorage.setItem('cart', JSON.stringify(newCart));
+    } else {
+      item['amount'] = 1;
+      const newCart = [...cart, item];
+      setCart(newCart);
+      localStorage.setItem('cart', JSON.stringify(newCart));
+    }
   }
-}
 
-  function updateAmount(amount, item) {     //Shopping cart amount function
+  function updateAmount(amount, item) {
+    //Shopping cart amount function
     item.amount = amount;
     const index = cart.findIndex((i) => i.product_id === item.product_id);
     const modifiedCart = Object.assign([...cart], { [index]: item });
@@ -50,7 +46,8 @@ function App() {
     console.log(cart);
   }
 
-  function removeItem(item) {     //Shopping cart delete function
+  function removeItem(item) {
+    //Shopping cart delete function
     const itemsWithoutRemoved = cart.filter((i) => i.product_id !== item.product_id);
     setCart(itemsWithoutRemoved);
     localStorage.setItem('cart', JSON.stringify(itemsWithoutRemoved));
@@ -58,23 +55,23 @@ function App() {
 
   return (
     <div className="d-flex flex-column min-vh-100">
-      <Infobanner />
       <NavBar cart={cart} />
       <div className="flex-grow-1 mb-5">
         <Switch>
-          <Route path="/" component={Frontpage} exact />
-          <Route path="/product" render={() => <Productpage addToCart={addToCart} />} />
-          <Route path="/kiekot" component={ShowDiscs} />
-          <Route path="/kassit" component={ShowBags} />
-          <Route path="/hakutulokset" component={SearchResults} />
+          <Route exact path="/" component={Frontpage} />
+          <Route exact path="/product" render={() => <Productpage addToCart={addToCart} />} />
+          <Route exact path="/kiekot" render={() => <ProductList title="Kiekot" categoryId="1" />} />
+          <Route exact path="/kassit" render={() => <ProductList title="Kassit" categoryId="2" />} />
+          <Route exact path="/hakutulokset" component={SearchResults} />
           <Route
+            exact
             path="/ostoskori"
             render={() => <OrderPage cart={cart} updateAmount={updateAmount} removeItem={removeItem} />}
           />
-          <Route path="/omatsivut" component={Userpage} exact />
-          <Route path="/hallinta" component={Adminpage} exact />
-          <Route path="/yrityksestä" component={Company} exact />
-          <Route path="/Käyttöehdot" component={Terms} exact />
+          <Route exact path="/omatsivut" component={Userpage} />
+          <Route exact path="/hallinta" component={Adminpage} />
+          <Route exact path="/yrityksestä" component={Company} />
+          <Route exact path="/Käyttöehdot" component={Terms} />
         </Switch>
       </div>
       <Footer />

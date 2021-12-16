@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react/cjs/react.development';
 import { Container, Table } from 'reactstrap';
 import axiosInstance from '../../axios';
 import { getPaymentMethod, getProductState, trimString } from '../../util/tableutil';
-import DetailModal from './modal/DetailModal';
-import OrderForm from './form/OrderForm';
-import TableDropdown from './TableDropdown';
-import EditModal from './modal/EditModal';
-import OrderRowForm from './form/OrderRowForm';
+import EditModal from '../../components/admin/modal/EditModal';
+import DetailModal from '../../components/admin/modal/DetailModal';
+import OrderForm from '../../components/admin/form/OrderForm';
+import TableDropdown from '../../components/admin/TableDropdown';
+import OrderRowForm from '../../components/admin/form/OrderRowForm';
 
 export default function OrderManagementTab() {
   const [orders, setOrders] = useState([]);

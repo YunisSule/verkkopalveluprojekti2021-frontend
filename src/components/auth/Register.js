@@ -1,6 +1,6 @@
 import { Row, Col, Form, FormGroup, Input, Label, Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { useState } from 'react';
-import axiosInstance from '../axios';
+import axiosInstance from '../../axios';
 
 export default function Register({ modal, close, openSignIn }) {
   const [formdata, setFormdata] = useState([]);

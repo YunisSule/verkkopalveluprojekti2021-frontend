@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'reactstrap';
 import { useLocation } from 'react-router';
 import axiosInstance from '../axios';
-import { IMAGE_PATH } from '../App';
+import { IMAGE_PATH } from '../config';
 
 export default function SearchResults() {
   const [products, setProducts] = useState([]);

@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Container, Table } from 'reactstrap';
-import TableDropDown from './TableDropdown';
+import TableDropdown from '../../components/admin/TableDropdown';
 import { trimString } from '../../util/tableutil';
-import AddModal from './modal/AddModal';
+import AddModal from '../../components/admin/modal/AddModal';
 import axiosInstance from '../../axios';
-import CategoryForm from './form/CategoryForm';
-import EditModal from './modal/EditModal';
-import AddButton from './AddButton';
+import CategoryForm from '../../components/admin/form/CategoryForm';
+import EditModal from '../../components/admin/modal/EditModal';
+import AddButton from '../../components/admin/AddButton';
 
 export default function CategoryManagementTab() {
   const [categories, setCategories] = useState([]);
@@ -93,7 +93,7 @@ export default function CategoryManagementTab() {
           {categories.map((category) => {
             return (
               <tr key={category.category_id} item={category}>
-                <TableDropDown>
+                <TableDropdown>
                   <div
                     className="admin-dropdown-item"
                     onClick={() => {
@@ -106,7 +106,7 @@ export default function CategoryManagementTab() {
                   <div className="admin-dropdown-item" onClick={() => deleteCategory(category.category_id)}>
                     Poista
                   </div>
-                </TableDropDown>
+                </TableDropdown>
                 {Object.values(category).map((value, index) => {
                   return <td key={index}>{value !== null ? trimString(value) : '-'}</td>;
                 })}

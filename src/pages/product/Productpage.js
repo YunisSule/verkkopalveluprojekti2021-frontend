@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Col, Row, Button, Container } from 'reactstrap';
 import { useLocation } from 'react-router';
-import axiosInstance from '../axios';
-import { IMAGE_PATH } from '../App';
+import axiosInstance from '../../axios';
+import { IMAGE_PATH } from '../../config';
 
 export default function Productpage({ addToCart }) {
   const [item, setItem] = useState([]);
@@ -23,7 +23,7 @@ export default function Productpage({ addToCart }) {
       .catch((error) => {
         alert(error.response ? error.response.data.error : error);
       });
-  }, []);
+  }, [id]);
 
   return (
     <>

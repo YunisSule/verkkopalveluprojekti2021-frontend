@@ -1,27 +1,25 @@
-import { Navbar, NavbarToggler, NavbarBrand, Collapse, NavItem, Nav, NavLink, Input, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup } from 'reactstrap';
+import { Input, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup } from 'reactstrap';
 import { useState } from 'react';
-import axiosInstance from '../axios';
+import axiosInstance from '../../axios';
 
 export default function Login({ onHide }) {
-  const [userToken, setUserToken] = useState('');
   const [open, setOpen] = useState(true);
   const userdata = {
     email: '',
-    passwd: ''
+    passwd: '',
   };
 
   const loginUser = async () => {
     axiosInstance
       .post('/auth/login.php', '', {
         headers: {
-          Authorization: 'Basic ' + Buffer.from(userdata.email + ':' + userdata.passwd).toString('base64')
+          Authorization: 'Basic ' + Buffer.from(userdata.email + ':' + userdata.passwd).toString('base64'),
         },
-        withCredentials: true
+        withCredentials: true,
       })
       .then((response) => {
         const tokenString = ('token', JSON.stringify(response.data));
         const Token = JSON.parse(tokenString);
-        setUserToken(Token.token);
         sessionStorage.setItem('token', Token.token);
         sessionStorage.setItem('user_id', Token.user_id);
         alert(tokenString);
@@ -48,13 +46,24 @@ export default function Login({ onHide }) {
           <FormGroup>
             <label htmlFor="e-mail">Sähköposti</label>
             <div>
-              <Input name="e-mail" type="email" required="required" autoComplete="username" onChange={(e) => (userdata.email = e.target.value)} />
+              <Input
+                name="e-mail"
+                type="email"
+                required="required"
+                autoComplete="username"
+                onChange={(e) => (userdata.email = e.target.value)}
+              />
             </div>
           </FormGroup>
           <FormGroup>
             <label htmlFor="passwd">Salasana</label>
             <div>
-              <Input type="password" name="password" required="required" onChange={(e) => (userdata.passwd = e.target.value)} />
+              <Input
+                type="password"
+                name="password"
+                required="required"
+                onChange={(e) => (userdata.passwd = e.target.value)}
+              />
             </div>
           </FormGroup>
           <ModalFooter>

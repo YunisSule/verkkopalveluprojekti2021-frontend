@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Container, Table } from 'reactstrap';
-import TableDropDown from './TableDropdown';
+import TableDropdown from '../../components/admin/TableDropdown';
 import { trimString } from '../../util/tableutil';
-import AddModal from './modal/AddModal';
+import AddModal from '../../components/admin/modal/AddModal';
 import axiosInstance from '../../axios';
-import ProductForm from './form/ProductForm';
-import EditModal from './modal/EditModal';
-import AddButton from './AddButton';
+import ProductForm from '../../components/admin/form/ProductForm';
+import EditModal from '../../components/admin/modal/EditModal';
+import AddButton from '../../components/admin/AddButton';
 
 export default function ProductManagementTab() {
   const [products, setProducts] = useState([]);
@@ -104,7 +104,7 @@ export default function ProductManagementTab() {
           {products.map((product) => {
             return (
               <tr key={product.product_id} item={product}>
-                <TableDropDown>
+                <TableDropdown>
                   <div
                     className="admin-dropdown-item"
                     onClick={() => {
@@ -117,7 +117,7 @@ export default function ProductManagementTab() {
                   <div className="admin-dropdown-item" onClick={() => deleteProduct(product.product_id)}>
                     Poista
                   </div>
-                </TableDropDown>
+                </TableDropdown>
                 {Object.values(product).map((value, index) => {
                   return <td key={index}>{value !== null ? trimString(value) : '-'}</td>;
                 })}
