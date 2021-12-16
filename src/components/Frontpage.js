@@ -49,29 +49,29 @@ export default function Frontpage() {
       <div className="col text-center">
         <h2 style={{ marginTop: '50px' }}>Kuukauden tuote</h2>
         {item.map((item) => (
-          <div className="productOfTheMonth">
+          <div className="items">
             <ListGroupItem>
-              <ListGroupItemHeading style={{ margin: '30px' }}>{item.name}</ListGroupItemHeading>
+              <ListGroupItemHeading>{item.name}</ListGroupItemHeading>
               <Link to={{ pathname: '/product', state: { id: item.product_id } }}>
                 <img className="image_150px" src={IMAGE_PATH + item.image_path} alt="Product" />
               </Link>
-              <ListGroupItemText style={{ margin: '20px' }}>Hinta {item.price}</ListGroupItemText>
+              <ListGroupItemText>Hinta {item.price}</ListGroupItemText>
             </ListGroupItem>
           </div>
         ))}
       </div>
 
-      <div className="col-6 text-center offset-3">
-        <h3>Suosittuja tuotteita</h3>
+      <div className="products">
         <hr />
+        <h3>Suosittuja tuotteita</h3>
         {products.map((item) => (
           <div className="items">
-            <ListGroupItem style={{ marginBottom: '100px' }}>
-              <ListGroupItemHeading style={{ margin: '30px' }}>{item.name}</ListGroupItemHeading>
+            <ListGroupItem>
+              <ListGroupItemHeading>{item.name}</ListGroupItemHeading>
               <Link to={{ pathname: '/product', state: { id: item.product_id } }}>
                 <img className="image_150px" src={IMAGE_PATH + item.image_path} alt="Product" />
               </Link>
-              <ListGroupItemText style={{ margin: '20px' }}>Hinta {item.price}</ListGroupItemText>
+              <ListGroupItemText>Hinta {item.price}</ListGroupItemText>
             </ListGroupItem>
           </div>
         ))}
