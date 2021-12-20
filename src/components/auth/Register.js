@@ -90,7 +90,7 @@ export default function Register({ modal, close, openSignIn }) {
                 </FormGroup>
               </Col>
             </Row>
-            <Label>Rekisteröidy asiakkaaksi ja lähetä</Label>
+            <Label>Rekisteröidy asiakkaaksi.</Label>
             <br />
             <Button>Lähetä</Button>
           </Form>
