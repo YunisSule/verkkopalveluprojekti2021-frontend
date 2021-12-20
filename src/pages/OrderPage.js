@@ -37,33 +37,37 @@ export default function OrderPage({ cart, updateAmount, removeItem }) {
 
   return (
     <Container>
-      <h3>Shopping cart</h3>
-      <table>
+      <h3 style={{margin: "1em"}}>Ostoskori</h3>
+      <div className='table-responsive'>
+      <table className='table table-hover table-borderless'>
         {cart.map((item) => {
           return (
-            <tr>
-              <td>
-                <img className="cartimage" src={IMAGE_PATH + item.image_path} alt="Product" />
-              </td>
-              <td className="cart">{item.brand}</td>
-              <td className="cart">{item.name}</td>
-              <td className="cart">{(item.price * item.amount).toFixed(2)} €</td>
-              <td className="cart">
-                <input
-                  style={{ width: '50px' }}
-                  type="number"
-                  step="1"
-                  onChange={(e) => changeAmount(e, item)}
-                  value={item.amount}
-                />
-              </td>
-              <td>
-                <Button onClick={() => removeItem(item)}>Delete</Button>
-              </td>
-            </tr>
+              <tbody>
+                <tr>
+                  <td>
+                    <img className="cartimage" src={IMAGE_PATH + item.image_path} alt="Product" />
+                  </td>
+                  <td className="cart">{item.brand}</td>
+                  <td className="cart">{item.name}</td>
+                  <td className="cart">{(item.price * item.amount).toFixed(2)} €</td>
+                  <td className="cart">
+                    <input
+                      style={{ width: '50px' }}
+                      type="number"
+                      step="1"
+                      onChange={(e) => changeAmount(e, item)}
+                      value={item.amount}
+                    />
+                  </td>
+                  <td>
+                    <Button onClick={() => removeItem(item)}>Delete</Button>
+                  </td>
+                </tr>
+            </tbody> 
           );
         })}
       </table>
+      </div>
       <Button
         onClick={() => {
           if (!sessionStorage.getItem('user_id')) {

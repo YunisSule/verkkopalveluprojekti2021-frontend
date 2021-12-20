@@ -193,15 +193,9 @@ body {
 
 /* STYLING FOR SHOPPING CART */
 
-.cart {
-  width: 150px;
-  padding: 10px;
-  padding-bottom: 30px;
-}
-
 .cartimage {
   height: 50px;
-  padding-right: 30px;
+  min-width: 50px;
 }
 
 /* STYLING FOR ADMIN PANEL */
