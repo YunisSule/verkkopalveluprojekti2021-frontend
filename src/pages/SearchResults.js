@@ -4,6 +4,7 @@ import { ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'reactstr
 import { useLocation } from 'react-router';
 import axiosInstance from '../axios';
 import { IMAGE_PATH } from '../config';
+import ListItem from '../components/ListItem';
 
 export default function SearchResults() {
   const [products, setProducts] = useState([]);
@@ -22,20 +23,13 @@ export default function SearchResults() {
   }, [query]);
 
   return (
-    <div className="products">
-      <h1>Hakutulokset</h1>
-      <hr />
-      {products.map((item) => (
-        <div className="items">
-          <ListGroupItem key={item.product_id}>
-            <ListGroupItemHeading>{item.name}</ListGroupItemHeading>
-            <Link to={{ pathname: '/product', state: { id: item.product_id } }}>
-              <img className="image_150px" src={IMAGE_PATH + item.image_path} alt="Product" />
-            </Link>
-            <ListGroupItemText>Hinta {item.price}</ListGroupItemText>
-          </ListGroupItem>
-        </div>
-      ))}
+    <div className="text-center">
+      <h1 className="my-3">Hakutulokset</h1>
+      <div className="items">
+        {products.map((item) => (
+          <ListItem key={item.product_id} item={item} />
+        ))}
+      </div>
     </div>
   );
 }
