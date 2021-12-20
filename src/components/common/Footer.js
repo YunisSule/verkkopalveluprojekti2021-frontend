@@ -47,7 +47,7 @@ export default function Footer() {
           <img src={Logo} alt="Logo" className="col-lg-4 d-none d-lg-block " />
         </div>
       </footer>
-      <div id="footerBottom" className="text-white p-2 bg-black">
+      <div id="footerBottom" className="text-white p-2 bg-dark">
         <p>&copy; Ryhmä 11</p>
       </div>
     </>
