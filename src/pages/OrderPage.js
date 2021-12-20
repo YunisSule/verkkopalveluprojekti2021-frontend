@@ -37,11 +37,11 @@ export default function OrderPage({ cart, updateAmount, removeItem }) {
 
   return (
     <Container>
-      <h3 style={{margin: "1em"}}>Ostoskori</h3>
-      <div className='table-responsive'>
-      <table className='table table-hover table-borderless'>
-        {cart.map((item) => {
-          return (
+      <h3 style={{ margin: '1em' }}>Ostoskori</h3>
+      <div className="table-responsive">
+        <table className="table table-hover table-borderless">
+          {cart.map((item) => {
+            return (
               <tbody>
                 <tr>
                   <td>
@@ -51,22 +51,16 @@ export default function OrderPage({ cart, updateAmount, removeItem }) {
                   <td className="cart">{item.name}</td>
                   <td className="cart">{(item.price * item.amount).toFixed(2)} €</td>
                   <td className="cart">
-                    <input
-                      style={{ width: '50px' }}
-                      type="number"
-                      step="1"
-                      onChange={(e) => changeAmount(e, item)}
-                      value={item.amount}
-                    />
+                    <input style={{ width: '50px' }} type="number" step="1" onChange={(e) => changeAmount(e, item)} value={item.amount} />
                   </td>
                   <td>
-                    <Button onClick={() => removeItem(item)}>Delete</Button>
+                    <Button onClick={() => removeItem(item)}>Poista</Button>
                   </td>
                 </tr>
-            </tbody> 
-          );
-        })}
-      </table>
+              </tbody>
+            );
+          })}
+        </table>
       </div>
       <Button
         onClick={() => {
@@ -79,14 +73,7 @@ export default function OrderPage({ cart, updateAmount, removeItem }) {
       >
         Tilaa
       </Button>
-      {signInOrRegiserModal ? (
-        <SignInOrRegisterModal
-          modal={signInOrRegiserModal}
-          openReg={openRegisterModal}
-          close={closeModals}
-          openOrder={openOrderModal}
-        />
-      ) : null}
+      {signInOrRegiserModal ? <SignInOrRegisterModal modal={signInOrRegiserModal} openReg={openRegisterModal} close={closeModals} openOrder={openOrderModal} /> : null}
       {registerModal ? <Register modal={registerModal} close={closeModals} openSignIn={openSignInModal} /> : null}
       {orderModal ? <SubmitOrder modal={orderModal} close={closeModals} cart={cart} /> : null}
     </Container>

@@ -39,7 +39,7 @@ export default function Footer() {
               </tr>
               <tr>
                 <td>
-                  <Link to="/Q&A">Q&A</Link>
+                  <p></p>
                 </td>
               </tr>
             </tbody>
