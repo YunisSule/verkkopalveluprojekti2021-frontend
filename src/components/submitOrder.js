@@ -19,18 +19,23 @@ export default function SubmitOrder({ modal, close, cart }) {
   function submit() {
     let json = JSON.stringify({
       cart: cart,
-      form: formdata,
+      form: formdata
     });
 
     axiosInstance
       .post('/order/postorder.php?user_id=' + userID, json)
       .then((response) => {
         alert('Tilaus lähetetty');
+        clearLocalStorage();
       })
       .catch((error) => {
         alert(error);
       });
-    close();
+  }
+
+  function clearLocalStorage() {
+    localStorage.clear();
+    window.location.reload();
   }
 
   return (
@@ -69,12 +74,10 @@ export default function SubmitOrder({ modal, close, cart }) {
             <Label>Laskutustapa</Label>
             <FormGroup tag="fieldset">
               <FormGroup check>
-                <Input name="radio1" type="radio" value="email" onChange={handleChange} />{' '}
-                <Label check>Sähköposti</Label>
+                <Input name="radio1" type="radio" value="email" onChange={handleChange} /> <Label check>Sähköposti</Label>
               </FormGroup>
               <FormGroup check>
-                <Input name="radio1" type="radio" value="letter" onChange={handleChange} />{' '}
-                <Label check>Paperilasku</Label>
+                <Input name="radio1" type="radio" value="letter" onChange={handleChange} /> <Label check>Paperilasku</Label>
               </FormGroup>
             </FormGroup>
           </Form>
